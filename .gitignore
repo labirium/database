@@ -1,0 +1,7 @@
+bin/
+temp/
+contrib/
+ipch/
+*.suo
+*.sdf
+*.opensdf

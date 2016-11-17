@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="source\field.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\precompiled.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\table.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\transaction.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\value.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\valuetable.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\insertvalue.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\query.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\statement.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\firststring.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\exception.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\opendatabase.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\deletevalue.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\transaction.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\value.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\types.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\targetver.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\table.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\precompiled.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\field.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\exception.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\valuetable.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\insertvalue.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\query.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\culture.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\statement.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\firststring.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="include\opendatabase.h">
+      <Filter>header</Filter>
+    </ClInclude>
+    <ClInclude Include="database.h">
+      <Filter>header\public</Filter>
+    </ClInclude>
+    <ClInclude Include="include\deletevalue.h">
+      <Filter>header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="header">
+      <UniqueIdentifier>{a7514dae-c525-4d4d-b138-471f55efdebc}</UniqueIdentifier>
+      <Extensions>*.h</Extensions>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{88292a02-f2cd-41fa-8f0f-6c7c615576dc}</UniqueIdentifier>
+      <Extensions>*.cpp</Extensions>
+    </Filter>
+    <Filter Include="header\public">
+      <UniqueIdentifier>{35f42654-bbba-47c7-bbcc-58e1ae717b4f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
