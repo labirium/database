@@ -1,13 +1,13 @@
 /// @file 
-/// @brief Тесты для работы с таблицей БД
+/// @brief РўРµСЃС‚С‹ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ С‚Р°Р±Р»РёС†РµР№ Р‘Р”
 
 #include <unitests/include/precompiled.h>
 
 namespace
 {
-// Тестовое имя таблицы
+// РўРµСЃС‚РѕРІРѕРµ РёРјСЏ С‚Р°Р±Р»РёС†С‹
 const wchar_t* const TEST_NAME_TABLE = L"TEST_TABLE";
-// путь к БД
+// РїСѓС‚СЊ Рє Р‘Р”
 const boost::filesystem::path& PATH_DB = boost::filesystem::temp_directory_path() / L"example.db";
 }
 
@@ -16,54 +16,54 @@ namespace
 class TableF: public ::testing::Test 
 { 
 public: 
-	/// @brief Конструктор
+	/// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
 	TableF( void ) : database_( std::make_shared<sqlite::Database>( PATH_DB, false ) )
 	{
-		//Добавляем поле id и выставляем как основной ключ таблицы
+		//Р”РѕР±Р°РІР»СЏРµРј РїРѕР»Рµ id Рё РІС‹СЃС‚Р°РІР»СЏРµРј РєР°Рє РѕСЃРЅРѕРІРЅРѕР№ РєР»СЋС‡ С‚Р°Р±Р»РёС†С‹
 		fieldDeclarationTable_.AddField( L"id", sqlite::enums::FieldType::Integer, true );
-		//Добавляем строковое поле в таблицу
+		//Р”РѕР±Р°РІР»СЏРµРј СЃС‚СЂРѕРєРѕРІРѕРµ РїРѕР»Рµ РІ С‚Р°Р±Р»РёС†Сѓ
 		fieldDeclarationTable_.AddField( L"value", sqlite::enums::FieldType::Text );
 	};
-    /// @brief Деструктор
+    /// @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
     ///
 	~TableF(){};
-	/// @brief Код, который будет выполнен перед началом теста 
+	/// @brief РљРѕРґ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РІС‹РїРѕР»РЅРµРЅ РїРµСЂРµРґ РЅР°С‡Р°Р»РѕРј С‚РµСЃС‚Р° 
 	///
 	void SetUp( void ){};
-	/// @brief Код, который будет выполнен сразу по завершении теста
+	/// @brief РљРѕРґ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РІС‹РїРѕР»РЅРµРЅ СЃСЂР°Р·Сѓ РїРѕ Р·Р°РІРµСЂС€РµРЅРёРё С‚РµСЃС‚Р°
 	///
 	void TearDown( void ){};
 protected:
-	/// @brif Возрващает описание полей таблицы
+	/// @brif Р’РѕР·СЂРІР°С‰Р°РµС‚ РѕРїРёСЃР°РЅРёРµ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹
 	///
 	const sqlite::FieldDeclarationTable& GetFieldDeclarationTable( void ) const
 	{
 		return fieldDeclarationTable_;
 	}
-	/// @brief Возвращает описание подулючение к БД
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ РѕРїРёСЃР°РЅРёРµ РїРѕРґСѓР»СЋС‡РµРЅРёРµ Рє Р‘Р”
 	///
 	sqlite::DatabasePtr GetDatabase( void ) const
 	{
 		return database_;
 	}
 private:
-	///< Описание полей таблицы
+	///< РћРїРёСЃР°РЅРёРµ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹
 	sqlite::FieldDeclarationTable fieldDeclarationTable_;
-	///< Подключение к БД
+	///< РџРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р”
 	const sqlite::DatabasePtr database_;
 };
 }
 
 //=====================================================================================================================
-// Тест создания исключения
+// РўРµСЃС‚ СЃРѕР·РґР°РЅРёСЏ РёСЃРєР»СЋС‡РµРЅРёСЏ
 TEST_F(TableF, Create ) 
 {
-	//Формируем таблицу на основе описания
+	//Р¤РѕСЂРјРёСЂСѓРµРј С‚Р°Р±Р»РёС†Сѓ РЅР° РѕСЃРЅРѕРІРµ РѕРїРёСЃР°РЅРёСЏ
 	EXPECT_NO_THROW( sqlite::Table( TEST_NAME_TABLE, GetFieldDeclarationTable() ) );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(TableF, GetData ) 
 {
 	sqlite::Table table( TEST_NAME_TABLE, GetFieldDeclarationTable() );
@@ -72,12 +72,12 @@ TEST_F(TableF, GetData )
 	EXPECT_NE( table.GetFieldDeclarationTablePtr(), nullptr );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(TableF, GetQueryWhereRecordSet ) 
 {
-	//Создаем описание таблицы
+	//РЎРѕР·РґР°РµРј РѕРїРёСЃР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 	sqlite::Table table( TEST_NAME_TABLE, GetFieldDeclarationTable() );
-	//Создаем транзакцию
+	//РЎРѕР·РґР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	sqlite::Transaction transaktion( GetDatabase() );
 
 	EXPECT_NO_THROW( table.Drop( transaktion ) );
@@ -85,54 +85,54 @@ TEST_F(TableF, GetQueryWhereRecordSet )
 	EXPECT_NE( table.GetQueryWhereRecordSet()( transaktion ), nullptr );
 }
 //=====================================================================================================================
-// Тест создание таблицы
+// РўРµСЃС‚ СЃРѕР·РґР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 TEST_F(TableF, CreateTable ) 
 {
-	//Создаем описание таблицы
+	//РЎРѕР·РґР°РµРј РѕРїРёСЃР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 	sqlite::Table table( TEST_NAME_TABLE, GetFieldDeclarationTable() );
-	//Создаем транзакцию
+	//РЎРѕР·РґР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	sqlite::Transaction transaktion( GetDatabase() );
-	//Создаем транзакцию
+	//РЎРѕР·РґР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	EXPECT_NO_THROW( table.Drop( transaktion ) );
 	EXPECT_NO_THROW( table.Create( transaktion ) );
 	EXPECT_THROW( table.Create( transaktion ), sqlite::Exception );
 }
 //=====================================================================================================================
-// Тест создание таблицы
+// РўРµСЃС‚ СЃРѕР·РґР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 TEST_F(TableF, CreateTableAndDrop ) 
 {
-	//Создаем описание таблицы
+	//РЎРѕР·РґР°РµРј РѕРїРёСЃР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 	sqlite::Table table( TEST_NAME_TABLE, GetFieldDeclarationTable() );
-	//Создаем транзакцию
+	//РЎРѕР·РґР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	sqlite::Transaction transaktion( GetDatabase() );
-	//Создаем транзакцию
+	//РЎРѕР·РґР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	EXPECT_NO_THROW( table.Drop( transaktion ) );
 	EXPECT_NO_THROW( table.Create( transaktion ) );
-	//Закрываем транзакцию
+	//Р—Р°РєСЂС‹РІР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	transaktion.Commit();
 
-	//Создаем транзакцию
+	//РЎРѕР·РґР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	sqlite::Transaction transaktion2( GetDatabase() );
-	//Создаем транзакцию
+	//РЎРѕР·РґР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	EXPECT_NO_THROW( table.Drop( transaktion2 ) );
 	EXPECT_NO_THROW( table.Drop( transaktion2 ) );
-	//Закрываем транзакцию
+	//Р—Р°РєСЂС‹РІР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	EXPECT_NO_THROW( transaktion2.Commit() );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(TableF, InsertData ) 
 {
-	//Создаем описание таблицы
+	//РЎРѕР·РґР°РµРј РѕРїРёСЃР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 	auto table = std::make_shared<sqlite::Table>( TEST_NAME_TABLE, GetFieldDeclarationTable() );
-	//Создаем транзакцию
+	//РЎРѕР·РґР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	sqlite::Transaction transaktion( GetDatabase() );
 
-	//Запись данных в таблицу (подготовка данных)
+	//Р—Р°РїРёСЃСЊ РґР°РЅРЅС‹С… РІ С‚Р°Р±Р»РёС†Сѓ (РїРѕРґРіРѕС‚РѕРІРєР° РґР°РЅРЅС‹С…)
 	sqlite::ValueTable valueTable( table ); 
-	//Выставка значения для поля id
+	//Р’С‹СЃС‚Р°РІРєР° Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РїРѕР»СЏ id
 	valueTable.GetIntegerValue( L"id" )->SetNull();
-	//Выставка значения для поля value
+	//Р’С‹СЃС‚Р°РІРєР° Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РїРѕР»СЏ value
 	valueTable.GetStringValue( L"value" )->Set( L"data" );
 
 	EXPECT_NO_THROW( table->Drop( transaktion ) );

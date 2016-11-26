@@ -1,10 +1,10 @@
 /// @file 
-/// @brief Тесты для работы с данными
+/// @brief РўРµСЃС‚С‹ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РґР°РЅРЅС‹РјРё
 
 #include <unitests/include/precompiled.h>
 
 //=====================================================================================================================
-// Тест создания исключения
+// РўРµСЃС‚ СЃРѕР·РґР°РЅРёСЏ РёСЃРєР»СЋС‡РµРЅРёСЏ
 TEST(ValueType, Create ) 
 {
 	auto field = std::make_shared<sqlite::Field>( L"data", sqlite::enums::FieldType::Text );
@@ -13,7 +13,7 @@ TEST(ValueType, Create )
 	EXPECT_NO_THROW( sqlite::ValueType<std::wstring> data( field ) );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST(ValueType, GetData ) 
 {
 	auto field = std::make_shared<sqlite::Field>( L"data", sqlite::enums::FieldType::Text );

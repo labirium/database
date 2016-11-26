@@ -1,14 +1,14 @@
 /// @file 
-/// @brief Файл содержит объявление классов для формирования описания полей таблицы.
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ РѕР±СЉСЏРІР»РµРЅРёРµ РєР»Р°СЃСЃРѕРІ РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РѕРїРёСЃР°РЅРёСЏ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹.
 
 #pragma once
 
 namespace sqlite
 {
-/// Перечисления используемые модулем database
+/// РџРµСЂРµС‡РёСЃР»РµРЅРёСЏ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ РјРѕРґСѓР»РµРј database
 namespace enums
 {
-/// @brief Типы полей sqlite
+/// @brief РўРёРїС‹ РїРѕР»РµР№ sqlite
 ///
 enum class FieldType : int
 {
@@ -22,124 +22,124 @@ enum class FieldType : int
 	BLob = 4,
 };
 }
-/// @brief Осуществляет конвертирование типа в строку
+/// @brief РћСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РєРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ С‚РёРїР° РІ СЃС‚СЂРѕРєСѓ
 ///
 class FieldType
 {
 public:
-	/// @brief Конструктор
+	/// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
-	/// @param[in] type тип поля sqlite
+	/// @param[in] type С‚РёРї РїРѕР»СЏ sqlite
 	FieldType( const enums::FieldType type );
-	/// @brief Деструктор
+	/// @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	///
 	~FieldType();
 public:
-	/// @brief Возвращает строку типа поля
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂРѕРєСѓ С‚РёРїР° РїРѕР»СЏ
 	///
 	const wchar_t* const ToString( void ) const;
-	/// @brief Возвращает строку типа поля
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂРѕРєСѓ С‚РёРїР° РїРѕР»СЏ
 	///
 	operator const wchar_t* () const;
 private:
-	///< Хранит тип поля
+	///< РҐСЂР°РЅРёС‚ С‚РёРї РїРѕР»СЏ
 	const enums::FieldType type_;
 };
 
-/// @brief Хранит описание поля в таблице
+/// @brief РҐСЂР°РЅРёС‚ РѕРїРёСЃР°РЅРёРµ РїРѕР»СЏ РІ С‚Р°Р±Р»РёС†Рµ
 ///
 class Field
 {
 public:
-	/// @brief Конструктор
+	/// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
-	/// @param[in] name имя поля
-	/// @param[in] type тип поля
-	/// @param[in] primaryKey является поле ключом
+	/// @param[in] name РёРјСЏ РїРѕР»СЏ
+	/// @param[in] type С‚РёРї РїРѕР»СЏ
+	/// @param[in] primaryKey СЏРІР»СЏРµС‚СЃСЏ РїРѕР»Рµ РєР»СЋС‡РѕРј
 	Field( const std::wstring& name, const enums::FieldType type, const bool primaryKey = false );
-	/// @brief Деструктор
+	/// @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	///
 	~Field();
 public:
-	/// @brief Возвращает строку для добавления поля в таблицу
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃС‚СЂРѕРєСѓ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РїРѕР»СЏ РІ С‚Р°Р±Р»РёС†Сѓ
 	///
 	std::wstring operator ()() const;
-	/// @brief Возврщает тип поля
+	/// @brief Р’РѕР·РІСЂС‰Р°РµС‚ С‚РёРї РїРѕР»СЏ
 	///
 	enums::FieldType GetFieldType( void ) const;
-	/// @brief Возвращает имя поля
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРјСЏ РїРѕР»СЏ
 	///
 	std::wstring GetName(void ) const;
-	/// @brief Возвращает признак поля
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ РїСЂРёР·РЅР°Рє РїРѕР»СЏ
 	///
 	bool GetPrimaryKey(void) const;
 private:
-	///< Имя поля
+	///< РРјСЏ РїРѕР»СЏ
 	const std::wstring name_;
-	///< Тип поля
+	///< РўРёРї РїРѕР»СЏ
 	const enums::FieldType type_;
-	///< признак поля является основным ключем
+	///< РїСЂРёР·РЅР°Рє РїРѕР»СЏ СЏРІР»СЏРµС‚СЃСЏ РѕСЃРЅРѕРІРЅС‹Рј РєР»СЋС‡РµРј
 	const bool primaryKey_;
 };
 
-/// @brief Хранит описание полей зарегестрированные в таблице
+/// @brief РҐСЂР°РЅРёС‚ РѕРїРёСЃР°РЅРёРµ РїРѕР»РµР№ Р·Р°СЂРµРіРµСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Рµ
 ///
 class FieldDeclarationTable
 {
 public:
-	/// @brief Конструктор
+	/// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
 	FieldDeclarationTable( void );
-	/// @brief Деструктор
+	/// @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	///
 	~FieldDeclarationTable();
 public:
-	/// @brief Добавляет запись в таблицу
+	/// @brief Р”РѕР±Р°РІР»СЏРµС‚ Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
 	///
-	/// @param[in] field запись в таблице
-	/// @return Возвращает ссылку на себя
+	/// @param[in] field Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Рµ
+	/// @return Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃСЃС‹Р»РєСѓ РЅР° СЃРµР±СЏ
 	FieldDeclarationTable& AddField( const sqlite::FieldPtr& field );
-	/// @brief Добавляет запись в таблицу
+	/// @brief Р”РѕР±Р°РІР»СЏРµС‚ Р·Р°РїРёСЃСЊ РІ С‚Р°Р±Р»РёС†Сѓ
 	///
-	/// @param[in] name имя поля
-	/// @param[in] type тип поля
-	/// @param[in] primaryKey является поле ключом
-	/// @return Возвращает ссылку на себя
+	/// @param[in] name РёРјСЏ РїРѕР»СЏ
+	/// @param[in] type С‚РёРї РїРѕР»СЏ
+	/// @param[in] primaryKey СЏРІР»СЏРµС‚СЃСЏ РїРѕР»Рµ РєР»СЋС‡РѕРј
+	/// @return Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃСЃС‹Р»РєСѓ РЅР° СЃРµР±СЏ
 	FieldDeclarationTable& AddField( const std::wstring& name, const sqlite::enums::FieldType type, const bool primaryKey = false );
 public:
-	/// @brief Возвращает описание поля по его имени
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ РѕРїРёСЃР°РЅРёРµ РїРѕР»СЏ РїРѕ РµРіРѕ РёРјРµРЅРё
 	///
-	/// @param[in] name имя поля
+	/// @param[in] name РёРјСЏ РїРѕР»СЏ
 	const sqlite::FieldPtr operator()( const std::wstring& name ) const;
-	/// @brief Возвращает список зарегестрированных полей
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє Р·Р°СЂРµРіРµСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С… РїРѕР»РµР№
 	///
 	const sqlite::FieldList& operator()( void ) const;
-	/// @brief Возвращает список имен зарегестрированных в таблице
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє РёРјРµРЅ Р·Р°СЂРµРіРµСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С… РІ С‚Р°Р±Р»РёС†Рµ
 	///
 	StringList GetFieldNameList( void ) const;
 private:
-	///< Список полей
+	///< РЎРїРёСЃРѕРє РїРѕР»РµР№
 	sqlite::FieldList fieldList_;
 };
 
-/// @brief Потоковая запись строки
+/// @brief РџРѕС‚РѕРєРѕРІР°СЏ Р·Р°РїРёСЃСЊ СЃС‚СЂРѕРєРё
 ///
-/// @param[in] stream поток
-/// @param[in] fieldType объект на запись
+/// @param[in] stream РїРѕС‚РѕРє
+/// @param[in] fieldType РѕР±СЉРµРєС‚ РЅР° Р·Р°РїРёСЃСЊ
 std::wostream& operator<<( std::wostream& stream, const FieldType& fieldType );
-/// @brief Потоковая запись строки
+/// @brief РџРѕС‚РѕРєРѕРІР°СЏ Р·Р°РїРёСЃСЊ СЃС‚СЂРѕРєРё
 ///
-/// @param[in] stream поток
-/// @param[in] field объект на запись
+/// @param[in] stream РїРѕС‚РѕРє
+/// @param[in] field РѕР±СЉРµРєС‚ РЅР° Р·Р°РїРёСЃСЊ
 std::wostream& operator<<( std::wostream& stream, const Field& field );
-/// @brief Потоковая запись строки
+/// @brief РџРѕС‚РѕРєРѕРІР°СЏ Р·Р°РїРёСЃСЊ СЃС‚СЂРѕРєРё
 ///
-/// @param[in] stream поток
-/// @param[in] fieldList объект на запись
+/// @param[in] stream РїРѕС‚РѕРє
+/// @param[in] fieldList РѕР±СЉРµРєС‚ РЅР° Р·Р°РїРёСЃСЊ
 std::wostream& operator<<( std::wostream& stream, const sqlite::FieldList& fieldList );
 
-/// @brief Формирование строки из списка строк
+/// @brief Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ СЃС‚СЂРѕРєРё РёР· СЃРїРёСЃРєР° СЃС‚СЂРѕРє
 ///
-/// @param[in] stringList список строк
+/// @param[in] stringList СЃРїРёСЃРѕРє СЃС‚СЂРѕРє
 std::wstring StrToStringList( const sqlite::StringList& stringList );
 }

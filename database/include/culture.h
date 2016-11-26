@@ -1,28 +1,28 @@
 /// @file 
-/// @brief Файл содержит реализацию преобразоваие строки в различные форматы/кодировки
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ СЂРµР°Р»РёР·Р°С†РёСЋ РїСЂРµРѕР±СЂР°Р·РѕРІР°РёРµ СЃС‚СЂРѕРєРё РІ СЂР°Р·Р»РёС‡РЅС‹Рµ С„РѕСЂРјР°С‚С‹/РєРѕРґРёСЂРѕРІРєРё
 
 #pragma once
 
-/// Конвертирование строк
+/// РљРѕРЅРІРµСЂС‚РёСЂРѕРІР°РЅРёРµ СЃС‚СЂРѕРє
 namespace culture
 {
-/// @brief Преобразует строку в utf8
+/// @brief РџСЂРµРѕР±СЂР°Р·СѓРµС‚ СЃС‚СЂРѕРєСѓ РІ utf8
 ///
-/// @param[in] source путь к файлу
+/// @param[in] source РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ
 inline std::string w2utf8( const boost::filesystem::path& source )
 {
 	return boost::locale::conv::utf_to_utf<char>( source.wstring() );
 }
-/// @brief Преобразует строку в utf8
+/// @brief РџСЂРµРѕР±СЂР°Р·СѓРµС‚ СЃС‚СЂРѕРєСѓ РІ utf8
 ///
-/// @param[in] source строка на преобразование
+/// @param[in] source СЃС‚СЂРѕРєР° РЅР° РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ
 inline std::string w2utf8( const std::wstring& source )
 {
 	return boost::locale::conv::utf_to_utf<char>( source );
 }
-/// @brief Преобразует utf8 в строку
+/// @brief РџСЂРµРѕР±СЂР°Р·СѓРµС‚ utf8 РІ СЃС‚СЂРѕРєСѓ
 ///
-/// @param[in] source строка на преобразование
+/// @param[in] source СЃС‚СЂРѕРєР° РЅР° РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ
 inline std::wstring utf2w( const std::string& source )
 {
 	return boost::locale::conv::utf_to_utf<wchar_t>( source );

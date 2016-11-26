@@ -1,88 +1,88 @@
 /// @file 
-/// @brief Файл содержит описание классов для храенения и предоставления доступа к данных БД
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ РѕРїРёСЃР°РЅРёРµ РєР»Р°СЃСЃРѕРІ РґР»СЏ С…СЂР°РµРЅРµРЅРёСЏ Рё РїСЂРµРґРѕСЃС‚Р°РІР»РµРЅРёСЏ РґРѕСЃС‚СѓРїР° Рє РґР°РЅРЅС‹С… Р‘Р”
 
 #pragma once
 
 namespace sqlite
 {
-/// @brief Класс осуществляет представление переменной/значения поля таблицы БД
+/// @brief РљР»Р°СЃСЃ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№/Р·РЅР°С‡РµРЅРёСЏ РїРѕР»СЏ С‚Р°Р±Р»РёС†С‹ Р‘Р”
 ///
 class Value 
 {
 protected:
-	/// @brief Конструктор
+	/// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
-	/// @param[in] data значение
-	/// @param[in] field описание поля в БД
+	/// @param[in] data Р·РЅР°С‡РµРЅРёРµ
+	/// @param[in] field РѕРїРёСЃР°РЅРёРµ РїРѕР»СЏ РІ Р‘Р”
 	Value( const boost::any& data, const sqlite::FieldPtr& field );
 public:
-	/// @brief Деструктор
+	/// @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	///
 	virtual ~Value();
 protected:
-	/// @brief Возвращает переменную
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ РїРµСЂРµРјРµРЅРЅСѓСЋ
 	///
 	const boost::any& Get( void ) const throw();
-	/// @brief Задает переменную
+	/// @brief Р—Р°РґР°РµС‚ РїРµСЂРµРјРµРЅРЅСѓСЋ
 	///
 	void Set( const boost::any& data ) throw();
 public:
-	/// @brief Задает nil для поля
+	/// @brief Р—Р°РґР°РµС‚ nil РґР»СЏ РїРѕР»СЏ
 	///
 	void SetNull( void ) throw();
-	/// @brief Проверяет евыствлен ли nil
+	/// @brief РџСЂРѕРІРµСЂСЏРµС‚ РµРІС‹СЃС‚РІР»РµРЅ Р»Рё nil
 	///
 	bool IsNull( void ) const throw();
 public:
-	/// @brief Возвращает описание поля 
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ РѕРїРёСЃР°РЅРёРµ РїРѕР»СЏ 
 	///
 	const sqlite::FieldPtr& Field( void ) const throw();
 private:
-	///< переменная
+	///< РїРµСЂРµРјРµРЅРЅР°СЏ
 	boost::any data_;
-	///< описание поля в БД
+	///< РѕРїРёСЃР°РЅРёРµ РїРѕР»СЏ РІ Р‘Р”
 	const sqlite::FieldPtr field_;
-	///< Выставлен ли nil
+	///< Р’С‹СЃС‚Р°РІР»РµРЅ Р»Рё nil
 	bool isNull_;
 };
 
-/// @brief Реализация шаблона для типизации работы с переменной/значения поля таблицы БД
+/// @brief Р РµР°Р»РёР·Р°С†РёСЏ С€Р°Р±Р»РѕРЅР° РґР»СЏ С‚РёРїРёР·Р°С†РёРё СЂР°Р±РѕС‚С‹ СЃ РїРµСЂРµРјРµРЅРЅРѕР№/Р·РЅР°С‡РµРЅРёСЏ РїРѕР»СЏ С‚Р°Р±Р»РёС†С‹ Р‘Р”
 template< typename TypeObject>
 class ValueType : public Value
 {
 public:
-	/// @brief Конструктор
+	/// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
-	/// @param[in] field описание поля в БД
+	/// @param[in] field РѕРїРёСЃР°РЅРёРµ РїРѕР»СЏ РІ Р‘Р”
 	explicit ValueType( const sqlite::FieldPtr& field ) : Value( TypeObject(), field )
 	{
 	}
-	/// @brief Конструктор
+	/// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
-	/// @param[in] data значение
-	/// @param[in] field описание поля в БД
+	/// @param[in] data Р·РЅР°С‡РµРЅРёРµ
+	/// @param[in] field РѕРїРёСЃР°РЅРёРµ РїРѕР»СЏ РІ Р‘Р”
 	ValueType( const TypeObject& data, const sqlite::FieldPtr& field )  :  Value( data, field )
 	{
 	}
-	/// @brief Деструктор
+	/// @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	///
 	~ValueType()
 	{
 	}
 public:
-	/// @brief Возвращает переменную
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ РїРµСЂРµРјРµРЅРЅСѓСЋ
 	///
 	TypeObject Get( void ) const
 	{
 		return boost::any_cast<TypeObject>( Value::Get() );
 	}
-	/// @brief Возвращает переменную
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ РїРµСЂРµРјРµРЅРЅСѓСЋ
 	///
 	TypeObject operator()() const
 	{
 		return Get( void );
 	}
-	/// @brief Задает значение в переменную
+	/// @brief Р—Р°РґР°РµС‚ Р·РЅР°С‡РµРЅРёРµ РІ РїРµСЂРµРјРµРЅРЅСѓСЋ
 	void Set( const TypeObject& data )
 	{
 		Value::Set( data );

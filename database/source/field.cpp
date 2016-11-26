@@ -1,5 +1,5 @@
 /// @file 
-/// @brief Файл содержит реализацию классов для формирования описания полей таблицы.
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ СЂРµР°Р»РёР·Р°С†РёСЋ РєР»Р°СЃСЃРѕРІ РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РѕРїРёСЃР°РЅРёСЏ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹.
 
 #include <database/include/precompiled.h>
 
@@ -9,17 +9,17 @@
 //=====================================================================================================================
 namespace
 {
-/// Строка для SQLITE_INTEGER
+/// РЎС‚СЂРѕРєР° РґР»СЏ SQLITE_INTEGER
 const wchar_t* const STR_INTEGER = L"INTEGER";
-/// Строка для SQLITE_FLOAT
+/// РЎС‚СЂРѕРєР° РґР»СЏ SQLITE_FLOAT
 const wchar_t* const STR_FLOAT = L"FLOAT";
-/// Строка для SQLITE_TEXT
+/// РЎС‚СЂРѕРєР° РґР»СЏ SQLITE_TEXT
 const wchar_t* const STR_TEXT = L"TEXT";
-/// Строка для SQLITE_BLOB
+/// РЎС‚СЂРѕРєР° РґР»СЏ SQLITE_BLOB
 const wchar_t* const STR_BLOB = L"BLOB";
-/// Строка для SQLITE_NULL
+/// РЎС‚СЂРѕРєР° РґР»СЏ SQLITE_NULL
 const wchar_t* const STR_NULL = L"NULL";
-/// Строка "PRIMARY KEY"
+/// РЎС‚СЂРѕРєР° "PRIMARY KEY"
 const wchar_t* const PRIMARY_KEY = L" NOT NULL PRIMARY KEY AUTOINCREMENT";
 }
 //=====================================================================================================================
@@ -168,7 +168,7 @@ std::wostream& operator<<( std::wostream& stream, const Field& field )
 //=====================================================================================================================
 std::wostream& operator<<( std::wostream& stream, const sqlite::FieldList& fieldList )
 {
-	//флаг о первом вхождении
+	//С„Р»Р°Рі Рѕ РїРµСЂРІРѕРј РІС…РѕР¶РґРµРЅРёРё
 	auto bFirst = true;
 
 	std::for_each
@@ -191,7 +191,7 @@ std::wstring StrToStringList( const sqlite::StringList& stringList )
 {
 	std::wstringstream stream;
 
-	//флаг о первом вхождении
+	//С„Р»Р°Рі Рѕ РїРµСЂРІРѕРј РІС…РѕР¶РґРµРЅРёРё
 	auto bFirst = true;
 
 	std::for_each

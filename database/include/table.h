@@ -1,59 +1,59 @@
 /// @file 
-/// @brief Файл содержит объявление классов для осуществления операций над таблицей базы данных.
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ РѕР±СЉСЏРІР»РµРЅРёРµ РєР»Р°СЃСЃРѕРІ РґР»СЏ РѕСЃСѓС‰РµСЃС‚РІР»РµРЅРёСЏ РѕРїРµСЂР°С†РёР№ РЅР°Рґ С‚Р°Р±Р»РёС†РµР№ Р±Р°Р·С‹ РґР°РЅРЅС‹С….
 
 #pragma once
 
 namespace sqlite
 {
-/// @brief Описание операций над таблицей в БД
+/// @brief РћРїРёСЃР°РЅРёРµ РѕРїРµСЂР°С†РёР№ РЅР°Рґ С‚Р°Р±Р»РёС†РµР№ РІ Р‘Р”
 ///
 class Table
 {
 public:
-	/// @brief Конструктор
+	/// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
-	/// @param[in] name Имя таблицы
-	/// @param[in] fieldDeclarationTable описание полей таблицы
+	/// @param[in] name РРјСЏ С‚Р°Р±Р»РёС†С‹
+	/// @param[in] fieldDeclarationTable РѕРїРёСЃР°РЅРёРµ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹
 	Table( const std::wstring& name, const sqlite::FieldDeclarationTable& fieldDeclarationTable  );
-	/// @brief Деструктор
+	/// @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	///
 	virtual ~Table();
 public:
-	/// @brief Создание таблицы по заданным полям
+	/// @brief РЎРѕР·РґР°РЅРёРµ С‚Р°Р±Р»РёС†С‹ РїРѕ Р·Р°РґР°РЅРЅС‹Рј РїРѕР»СЏРј
 	///
-	/// @param[in] transaktion Описание транзакции
+	/// @param[in] transaktion РћРїРёСЃР°РЅРёРµ С‚СЂР°РЅР·Р°РєС†РёРё
 	void Create( const Transaction& transaktion ) const;
-	/// @brief Удаление таблицы
+	/// @brief РЈРґР°Р»РµРЅРёРµ С‚Р°Р±Р»РёС†С‹
 	///
-	/// @param[in] transaktion Описание транзакции
+	/// @param[in] transaktion РћРїРёСЃР°РЅРёРµ С‚СЂР°РЅР·Р°РєС†РёРё
 	void Drop( const Transaction& transaktion ) const;
-	/// @brief Осуществляет вставку новой записи
+	/// @brief РћСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РІСЃС‚Р°РІРєСѓ РЅРѕРІРѕР№ Р·Р°РїРёСЃРё
 	///
-	/// @param[in] transaktion Описание транзакции
-	/// @param[in] valueTable Описание переменной
+	/// @param[in] transaktion РћРїРёСЃР°РЅРёРµ С‚СЂР°РЅР·Р°РєС†РёРё
+	/// @param[in] valueTable РћРїРёСЃР°РЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№
 	void Insert( const sqlite::Transaction& transaktion, const sqlite::ValueTable& valueTable ) const;
-	/// @brief Осуществляет удаление записи
+	/// @brief РћСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ СѓРґР°Р»РµРЅРёРµ Р·Р°РїРёСЃРё
 	///
-	/// @param[in] transaktion Описание транзакции
-	/// @param[in] valueTable Описание переменной
+	/// @param[in] transaktion РћРїРёСЃР°РЅРёРµ С‚СЂР°РЅР·Р°РєС†РёРё
+	/// @param[in] valueTable РћРїРёСЃР°РЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№
 	void Delete(const sqlite::Transaction& transaktion, const sqlite::ValueTable& valueTable) const;
-	/// @brief Возвращает запрос для выборки по таблице
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·Р°РїСЂРѕСЃ РґР»СЏ РІС‹Р±РѕСЂРєРё РїРѕ С‚Р°Р±Р»РёС†Рµ
 	///
 	Query GetQueryWhereRecordSet( void ) const;
 public:
-	/// @brief Возвращает имя таблицы
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ РёРјСЏ С‚Р°Р±Р»РёС†С‹
 	///
 	const std::wstring& GetName( void ) const; 
-	///@brief Вовращает описание полей
+	///@brief Р’РѕРІСЂР°С‰Р°РµС‚ РѕРїРёСЃР°РЅРёРµ РїРѕР»РµР№
 	///
 	const FieldDeclarationTable& GetFieldDeclarationTable( void ) const;
-	///@brief Вовращает указатель на описание полей таблицы
+	///@brief Р’РѕРІСЂР°С‰Р°РµС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РѕРїРёСЃР°РЅРёРµ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹
 	///
 	const FieldDeclarationTablePtr GetFieldDeclarationTablePtr( void ) const;
 private:
-	///< Описание полей таблицы
+	///< РћРїРёСЃР°РЅРёРµ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹
 	const sqlite::FieldDeclarationTablePtr fieldDeclarationTable_;	
-	///< Имя таблицы
+	///< РРјСЏ С‚Р°Р±Р»РёС†С‹
 	const std::wstring name_;
 };
 }

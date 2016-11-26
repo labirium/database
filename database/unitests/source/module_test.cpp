@@ -1,90 +1,90 @@
 /// @file 
-/// @brief Модульный тест
+/// @brief РњРѕРґСѓР»СЊРЅС‹Р№ С‚РµСЃС‚
 
 #include <unitests/include/precompiled.h>
 
 namespace
 {
-///< путь к БД
+///< РїСѓС‚СЊ Рє Р‘Р”
 const boost::filesystem::path& PATH_TEST_DB = boost::filesystem::temp_directory_path() / L"test.db";
 }
 //=====================================================================================================================
-// Модульный тест
+// РњРѕРґСѓР»СЊРЅС‹Р№ С‚РµСЃС‚
 TEST(ModuleTest, First) 
 {
 	try
 	{
-			//Открываем базу данных
+			//РћС‚РєСЂС‹РІР°РµРј Р±Р°Р·Сѓ РґР°РЅРЅС‹С…
 			auto database = std::make_shared<sqlite::Database>( PATH_TEST_DB, false );
 
-			//Описание полей таблицы
+			//РћРїРёСЃР°РЅРёРµ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹
 			sqlite::FieldDeclarationTable fieldDeclarationTable;
-			//Добавляем поле id и выставляем как основной ключ таблицы
+			//Р”РѕР±Р°РІР»СЏРµРј РїРѕР»Рµ id Рё РІС‹СЃС‚Р°РІР»СЏРµРј РєР°Рє РѕСЃРЅРѕРІРЅРѕР№ РєР»СЋС‡ С‚Р°Р±Р»РёС†С‹
 			fieldDeclarationTable.AddField( L"id", sqlite::enums::FieldType::Integer, true );
-			//Добавляем строковое поле в таблицу
+			//Р”РѕР±Р°РІР»СЏРµРј СЃС‚СЂРѕРєРѕРІРѕРµ РїРѕР»Рµ РІ С‚Р°Р±Р»РёС†Сѓ
 			fieldDeclarationTable.AddField( L"value", sqlite::enums::FieldType::Text );
 
-			//Формируем таблицу на основе описания
+			//Р¤РѕСЂРјРёСЂСѓРµРј С‚Р°Р±Р»РёС†Сѓ РЅР° РѕСЃРЅРѕРІРµ РѕРїРёСЃР°РЅРёСЏ
 			auto table = std::make_shared<sqlite::Table>( L"testTable", fieldDeclarationTable );
 
-			//Открываем транзакцию
+			//РћС‚РєСЂС‹РІР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 			sqlite::Transaction transaction( database );
 
-			//Удаление таблицы
+			//РЈРґР°Р»РµРЅРёРµ С‚Р°Р±Р»РёС†С‹
 			table->Drop( transaction );
-			//Создание таблицы
+			//РЎРѕР·РґР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 			table->Create( transaction );
 
 
-			//Запись данных в таблицу (подготовка данных)
+			//Р—Р°РїРёСЃСЊ РґР°РЅРЅС‹С… РІ С‚Р°Р±Р»РёС†Сѓ (РїРѕРґРіРѕС‚РѕРІРєР° РґР°РЅРЅС‹С…)
 			sqlite::ValueTable valueTable( table ); 
-			//Выставка значения для поля id
+			//Р’С‹СЃС‚Р°РІРєР° Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РїРѕР»СЏ id
 			valueTable.GetIntegerValue( L"id" )->SetNull();
-			//Выставка значения для поля value
+			//Р’С‹СЃС‚Р°РІРєР° Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РїРѕР»СЏ value
 			valueTable.GetStringValue( L"value" )->Set( L"data" );
 
-			//Запись данных в таблицу  (подготовка данных)
+			//Р—Р°РїРёСЃСЊ РґР°РЅРЅС‹С… РІ С‚Р°Р±Р»РёС†Сѓ  (РїРѕРґРіРѕС‚РѕРІРєР° РґР°РЅРЅС‹С…)
 			sqlite::ValueTable valueTable2( table );
-			//Выставка значения для поля id
+			//Р’С‹СЃС‚Р°РІРєР° Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РїРѕР»СЏ id
 			valueTable2.GetIntegerValue( L"id" )->SetNull();
-			//Выставка значения для поля value
-			valueTable2.GetStringValue( L"value" )->Set( L"привет мир" );
+			//Р’С‹СЃС‚Р°РІРєР° Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РїРѕР»СЏ value
+			valueTable2.GetStringValue( L"value" )->Set( L"РїСЂРёРІРµС‚ РјРёСЂ" );
 
-			//Вставка одной записи в теблицу
+			//Р’СЃС‚Р°РІРєР° РѕРґРЅРѕР№ Р·Р°РїРёСЃРё РІ С‚РµР±Р»РёС†Сѓ
 			table->Insert( transaction, valueTable );
 
-			//Вставка группы записей
+			//Р’СЃС‚Р°РІРєР° РіСЂСѓРїРїС‹ Р·Р°РїРёСЃРµР№
 			sqlite::InsertValue insertValue( table );
 			insertValue.Add( valueTable );
 			insertValue.Add( valueTable2 );
-			//Заносим группу в таблицу
+			//Р—Р°РЅРѕСЃРёРј РіСЂСѓРїРїСѓ РІ С‚Р°Р±Р»РёС†Сѓ
 			insertValue.Exec( transaction );
-			//Закрываем транзакцию
+			//Р—Р°РєСЂС‹РІР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 			transaction.Commit();
 
 
 						
-			//Получаем запрос для выборки по таблице и задаем параметры для выборки
+			//РџРѕР»СѓС‡Р°РµРј Р·Р°РїСЂРѕСЃ РґР»СЏ РІС‹Р±РѕСЂРєРё РїРѕ С‚Р°Р±Р»РёС†Рµ Рё Р·Р°РґР°РµРј РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ РІС‹Р±РѕСЂРєРё
 			auto query = table->GetQueryWhereRecordSet();	
 			//query.Where( L"id", L"" );
 
-			//Открываем транзакцию
+			//РћС‚РєСЂС‹РІР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 			sqlite::Transaction transaction2( database );
 			
-			//Выполняем запрос к таблице БД
+			//Р’С‹РїРѕР»РЅСЏРµРј Р·Р°РїСЂРѕСЃ Рє С‚Р°Р±Р»РёС†Рµ Р‘Р”
 			auto stmt = query( transaction2 );
 				
-			//Закрываем транзакцию
+			//Р—Р°РєСЂС‹РІР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 			transaction2.Commit();
 
-			//Обрабатываем данные из выборки
+			//РћР±СЂР°Р±Р°С‚С‹РІР°РµРј РґР°РЅРЅС‹Рµ РёР· РІС‹Р±РѕСЂРєРё
 			while( const auto value = stmt->Step() )
 			{
-				//Получаем данные для поля id
+				//РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ РґР»СЏ РїРѕР»СЏ id
 				auto id = value->GetIntegerValue( L"id" )->Get();
-				//Получаем данные для поля value
+				//РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ РґР»СЏ РїРѕР»СЏ value
 				auto data = value->GetStringValue( L"value" )->Get();
-				//Выводим на экран
+				//Р’С‹РІРѕРґРёРј РЅР° СЌРєСЂР°РЅ
 				std::cout << "id: " << id << " value: " << culture::w2utf8( data ) << std::endl;
 			}		
 	}

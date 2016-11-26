@@ -1,20 +1,20 @@
 /// @file 
-/// @brief Файл содержит объявление классов для формирования исключений.
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ РѕР±СЉСЏРІР»РµРЅРёРµ РєР»Р°СЃСЃРѕРІ РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РёСЃРєР»СЋС‡РµРЅРёР№.
 
 #pragma once
 
 namespace sqlite
 {
-/// @brief Исключение бросаемое модулем sqlite
+/// @brief РСЃРєР»СЋС‡РµРЅРёРµ Р±СЂРѕСЃР°РµРјРѕРµ РјРѕРґСѓР»РµРј sqlite
 ///
 class Exception : public std::runtime_error
 {
 public:
-    /// @brief Конструктор
+    /// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
-	/// @param[in] message Сообщение об ошибке
+	/// @param[in] message РЎРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ
     explicit Exception(const std::string& message );
-	/// @brief Деструктор
+	/// @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	///
 	virtual ~Exception();
 };

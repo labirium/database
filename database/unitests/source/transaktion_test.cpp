@@ -1,45 +1,45 @@
 /// @file 
-/// @brief Тесты для открытия транзакции БД
+/// @brief РўРµСЃС‚С‹ РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ С‚СЂР°РЅР·Р°РєС†РёРё Р‘Р”
 
 #include <unitests/include/precompiled.h>
 
 namespace
 {
-// путь к БД
+// РїСѓС‚СЊ Рє Р‘Р”
 const boost::filesystem::path& PATH_DB = boost::filesystem::temp_directory_path() / L"example.db";
 }
 //=====================================================================================================================
-// Тест создания исключения
+// РўРµСЃС‚ СЃРѕР·РґР°РЅРёСЏ РёСЃРєР»СЋС‡РµРЅРёСЏ
 TEST(Transaktion, Create ) 
 {
-	//Открываем базу данных
+	//РћС‚РєСЂС‹РІР°РµРј Р±Р°Р·Сѓ РґР°РЅРЅС‹С…
 	auto database = std::make_shared<sqlite::Database>( PATH_DB, false );
 
 	EXPECT_NO_THROW( sqlite::Transaction transaction( database ) );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST(Transaktion, GetData ) 
 {
-	//Открываем базу данных
+	//РћС‚РєСЂС‹РІР°РµРј Р±Р°Р·Сѓ РґР°РЅРЅС‹С…
 	auto database = std::make_shared<sqlite::Database>( PATH_DB, false );
-	//Создаем транакцию
+	//РЎРѕР·РґР°РµРј С‚СЂР°РЅР°РєС†РёСЋ
 	sqlite::Transaction transaction( database );
-	//Получаем гетер
+	//РџРѕР»СѓС‡Р°РµРј РіРµС‚РµСЂ
 	EXPECT_EQ( transaction.GetDataBase(), database );
 	EXPECT_EQ( &transaction(), database.get() );
 }
 //=====================================================================================================================
-// Тест на копирование объекта
+// РўРµСЃС‚ РЅР° РєРѕРїРёСЂРѕРІР°РЅРёРµ РѕР±СЉРµРєС‚Р°
 TEST(Transaktion, Commit ) 
 {
-	//Открываем базу данных
+	//РћС‚РєСЂС‹РІР°РµРј Р±Р°Р·Сѓ РґР°РЅРЅС‹С…
 	auto database = std::make_shared<sqlite::Database>( PATH_DB, false );
-	//Создаем транакцию
+	//РЎРѕР·РґР°РµРј С‚СЂР°РЅР°РєС†РёСЋ
 	sqlite::Transaction transaction( database );
-	//Первый вызов
+	//РџРµСЂРІС‹Р№ РІС‹Р·РѕРІ
 	EXPECT_NO_THROW( transaction.Commit() );
-	//Повторный вызов
+	//РџРѕРІС‚РѕСЂРЅС‹Р№ РІС‹Р·РѕРІ
 	EXPECT_THROW( transaction.Commit(), sqlite::Exception );
 }
 //=====================================================================================================================

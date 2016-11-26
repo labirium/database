@@ -1,5 +1,5 @@
 /// @file 
-/// @brief Файл содержит описание типов модуля database
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ РѕРїРёСЃР°РЅРёРµ С‚РёРїРѕРІ РјРѕРґСѓР»СЏ database
 
 #pragma once
 
@@ -7,67 +7,67 @@ namespace sqlite
 {
 
 class Database;
-/// Указатель на подключение к БД
+/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РїРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р”
 typedef std::shared_ptr<Database> DatabasePtr;
 
 class TransactionImp;
-/// Указатель на реализацию транзакции
+/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° СЂРµР°Р»РёР·Р°С†РёСЋ С‚СЂР°РЅР·Р°РєС†РёРё
 typedef std::shared_ptr<TransactionImp> TransactionImpPtr;
 
 class Field;
-/// Указатель на поле
+/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РїРѕР»Рµ
 typedef std::shared_ptr<Field> FieldPtr;
 
 class FieldDeclarationTable;
-/// Указатель на описание полей таблицы
+/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РѕРїРёСЃР°РЅРёРµ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹
 typedef std::shared_ptr<FieldDeclarationTable> FieldDeclarationTablePtr;
 
-/// Cписок описания поля
+/// CРїРёСЃРѕРє РѕРїРёСЃР°РЅРёСЏ РїРѕР»СЏ
 typedef std::vector<const FieldPtr> FieldList;
-/// Список строк
+/// РЎРїРёСЃРѕРє СЃС‚СЂРѕРє
 typedef std::vector<std::wstring> StringList;
 
 class Value;
-/// Указатель на переменную
+/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРµРјРµРЅРЅСѓСЋ
 typedef std::shared_ptr<Value> ValuePtr;
 
 class ValueTable;
-/// Указатель на переменную таблицы
+/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРµРјРµРЅРЅСѓСЋ С‚Р°Р±Р»РёС†С‹
 typedef std::shared_ptr<ValueTable> ValueTablePtr;
-/// /// Описание списка переменных
+/// /// РћРїРёСЃР°РЅРёРµ СЃРїРёСЃРєР° РїРµСЂРµРјРµРЅРЅС‹С…
 typedef std::vector<ValueTable> ValueTableList;
-/// Описание списка переменных соотвествием имени поля
+/// РћРїРёСЃР°РЅРёРµ СЃРїРёСЃРєР° РїРµСЂРµРјРµРЅРЅС‹С… СЃРѕРѕС‚РІРµСЃС‚РІРёРµРј РёРјРµРЅРё РїРѕР»СЏ
 typedef std::map<std::wstring, ValuePtr > ValueList;
 
 class Table;
-/// Указатель на таблицу базы данных
+/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° С‚Р°Р±Р»РёС†Сѓ Р±Р°Р·С‹ РґР°РЅРЅС‹С…
 typedef std::shared_ptr<Table> TablePtr;
 
 class Stmt;
-/// Указатель на перебор данных
+/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РїРµСЂРµР±РѕСЂ РґР°РЅРЅС‹С…
 typedef std::shared_ptr<Stmt> StmtPtr;
 
 template< typename TypeObject> class ValueType;
 
-///Типы данных базы данных
+///РўРёРїС‹ РґР°РЅРЅС‹С… Р±Р°Р·С‹ РґР°РЅРЅС‹С…
 namespace types
 {
-///Описание строки БД
+///РћРїРёСЃР°РЅРёРµ СЃС‚СЂРѕРєРё Р‘Р”
 typedef std::wstring				SQLITE_TYPE_STRING;
-///Описание целового числа БД
+///РћРїРёСЃР°РЅРёРµ С†РµР»РѕРІРѕРіРѕ С‡РёСЃР»Р° Р‘Р”
 typedef sqlite_int64				SQLITE_TYPE_INTEGER;
-///Описание числа с плавующей точкой БД
+///РћРїРёСЃР°РЅРёРµ С‡РёСЃР»Р° СЃ РїР»Р°РІСѓСЋС‰РµР№ С‚РѕС‡РєРѕР№ Р‘Р”
 typedef double						SQLITE_TYPE_FLOAT;
-///Описание BLOB БД
+///РћРїРёСЃР°РЅРёРµ BLOB Р‘Р”
 typedef std::vector<unsigned char>	SQLITE_TYPE_BLOB;
 
-/// Указатель на строку БД
+/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° СЃС‚СЂРѕРєСѓ Р‘Р”
 typedef std::shared_ptr<ValueType<SQLITE_TYPE_STRING>> ValueStringPtr;
-/// Указатель на целое число БД
+/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° С†РµР»РѕРµ С‡РёСЃР»Рѕ Р‘Р”
 typedef std::shared_ptr<ValueType<SQLITE_TYPE_INTEGER>> ValueIntegerPtr;
-/// Указатель на число с плавующей точкой БД
+/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° С‡РёСЃР»Рѕ СЃ РїР»Р°РІСѓСЋС‰РµР№ С‚РѕС‡РєРѕР№ Р‘Р”
 typedef std::shared_ptr<ValueType<SQLITE_TYPE_FLOAT>> ValueFloatPtr;
-/// Указатель на BLOB БД
+/// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° BLOB Р‘Р”
 typedef std::shared_ptr<ValueType<SQLITE_TYPE_BLOB>> ValueBlobPtr;
 }
 

@@ -1,5 +1,5 @@
 /// @file 
-/// @brief Файл содержит объявление классов для формирования запроса.
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ РѕР±СЉСЏРІР»РµРЅРёРµ РєР»Р°СЃСЃРѕРІ РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ Р·Р°РїСЂРѕСЃР°.
 
 #pragma once
 
@@ -7,7 +7,7 @@ namespace sqlite
 {
 namespace enums
 {
-/// Тип сортировки
+/// РўРёРї СЃРѕСЂС‚РёСЂРѕРІРєРё
 typedef enum tagOrderByType
 {
 	/// ASC
@@ -17,54 +17,54 @@ typedef enum tagOrderByType
 }OrderByType;
 }
 
-/// @brief Класс осуществляет формирование запроса
+/// @brief РљР»Р°СЃСЃ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ С„РѕСЂРјРёСЂРѕРІР°РЅРёРµ Р·Р°РїСЂРѕСЃР°
 ///
 class Query
 {
 	friend Table;
 protected:
-    /// @brief Конструктор
+    /// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
-	/// @param[in] table Указатель на описание таблицы
+	/// @param[in] table РЈРєР°Р·Р°С‚РµР»СЊ РЅР° РѕРїРёСЃР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 	explicit Query( const TablePtr& table );
-	/// @brief Конструктор
+	/// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
-	/// @param[in] table Описание таблицы
+	/// @param[in] table РћРїРёСЃР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 	explicit Query( const Table& table );
 public:
-    /// @brief Деструктор
+    /// @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	///
     ~Query() throw();
 public:
-	/// @brief Формирование запроса к БД
+	/// @brief Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ Р·Р°РїСЂРѕСЃР° Рє Р‘Р”
 	///
-	/// @param[in] transaktion Транзакция в рамках которой идет обращение к БД
+	/// @param[in] transaktion РўСЂР°РЅР·Р°РєС†РёСЏ РІ СЂР°РјРєР°С… РєРѕС‚РѕСЂРѕР№ РёРґРµС‚ РѕР±СЂР°С‰РµРЅРёРµ Рє Р‘Р”
 	StmtPtr operator()( const Transaction& transaktion ) const;
 public:
-	/// @brief Задает тип сортировки
+	/// @brief Р—Р°РґР°РµС‚ С‚РёРї СЃРѕСЂС‚РёСЂРѕРІРєРё
 	///
-	/// @param[in] name имя параметра
-	/// @param[in] type тип сортировки
+	/// @param[in] name РёРјСЏ РїР°СЂР°РјРµС‚СЂР°
+	/// @param[in] type С‚РёРї СЃРѕСЂС‚РёСЂРѕРІРєРё
 	Query& OrderBy( const std::wstring& name, enums::OrderByType type = enums::ASC );
-	/// @brief Ограничевает запрос количеством элементов ( LIMIT = N )
+	/// @brief РћРіСЂР°РЅРёС‡РµРІР°РµС‚ Р·Р°РїСЂРѕСЃ РєРѕР»РёС‡РµСЃС‚РІРѕРј СЌР»РµРјРµРЅС‚РѕРІ ( LIMIT = N )
 	///
-	/// @param[in] limit Лимит в выборке
+	/// @param[in] limit Р›РёРјРёС‚ РІ РІС‹Р±РѕСЂРєРµ
 	Query& Limit( const unsigned int limit );
-	/// @brief Позволяет задать произвольные условия
+	/// @brief РџРѕР·РІРѕР»СЏРµС‚ Р·Р°РґР°С‚СЊ РїСЂРѕРёР·РІРѕР»СЊРЅС‹Рµ СѓСЃР»РѕРІРёСЏ
 	///
-	/// @param[in] whereTable запрос
+	/// @param[in] whereTable Р·Р°РїСЂРѕСЃ
 	void Where( const std::wstring& whereTable );
 private:
-	///< Список условий
+	///< РЎРїРёСЃРѕРє СѓСЃР»РѕРІРёР№
 	std::vector<std::wstring> where_;
-	///< сортировка
+	///< СЃРѕСЂС‚РёСЂРѕРІРєР°
 	std::wstring orderBy_;
-	///< ограничение выборки
+	///< РѕРіСЂР°РЅРёС‡РµРЅРёРµ РІС‹Р±РѕСЂРєРё
 	std::wstring limit_;
 private:
-	///< Описание Таблицы
+	///< РћРїРёСЃР°РЅРёРµ РўР°Р±Р»РёС†С‹
     const FieldDeclarationTablePtr fieldDeclarationTable_;
-	///< Описание Таблицы
+	///< РћРїРёСЃР°РЅРёРµ РўР°Р±Р»РёС†С‹
     const std::wstring tableName_;
 };
 }

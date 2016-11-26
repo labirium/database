@@ -1,11 +1,11 @@
 /// @file 
-/// @brief Файл содержит реализацию классов для работы со значениями полей таблицы БД
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ СЂРµР°Р»РёР·Р°С†РёСЋ РєР»Р°СЃСЃРѕРІ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃРѕ Р·РЅР°С‡РµРЅРёСЏРјРё РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹ Р‘Р”
 
 #include <database/include/precompiled.h>
 
 namespace
 {
-/// Размер буфера для формирования строки BLOB
+/// Р Р°Р·РјРµСЂ Р±СѓС„РµСЂР° РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ СЃС‚СЂРѕРєРё BLOB
 const size_t SIZE_BUFFER = 32;
 }
 
@@ -77,7 +77,7 @@ const FieldDeclarationTable& ValueTable::GetFieldDeclarationTable( void ) const
 //=====================================================================================================================
 ValuePtr ValueTable::GetAndCheckValue( const std::wstring& name, const sqlite::enums::FieldType type ) const
 {
-	//Осуществляем поиск записи
+	//РћСЃСѓС‰РµСЃС‚РІР»СЏРµРј РїРѕРёСЃРє Р·Р°РїРёСЃРё
 	const auto& itr = valueList_.find( name );
 	if( itr == valueList_.end() ){
 		throw sqlite::Exception( "Don't declaration field." );
@@ -92,7 +92,7 @@ ValuePtr ValueTable::GetAndCheckValue( const std::wstring& name, const sqlite::e
 //=====================================================================================================================
 ValuePtr ValueTable::GetValue( const std::wstring& name ) const
 {
-	//Осуществляем поиск записи
+	//РћСЃСѓС‰РµСЃС‚РІР»СЏРµРј РїРѕРёСЃРє Р·Р°РїРёСЃРё
 	const auto& itr = valueList_.find( name );
 	if( itr == valueList_.end() ){
 		throw sqlite::Exception( "Don't declaration field." );
@@ -128,21 +128,21 @@ types::ValueBlobPtr ValueTable::GetBlobValue( const std::wstring& name ) const
 //=====================================================================================================================
 std::wostream& operator<<( std::wostream& stream, const sqlite::ValuePtr& value )
 {
-	//Проверяем входные данные
+	//РџСЂРѕРІРµСЂСЏРµРј РІС…РѕРґРЅС‹Рµ РґР°РЅРЅС‹Рµ
 	if(  !value || !value->Field() )
 	{
 		assert( !"Invalid's paramtr." );
 		return stream;
 	}
 
-	//Проверяем на NULL
+	//РџСЂРѕРІРµСЂСЏРµРј РЅР° NULL
 	if( value->IsNull() )
 	{
 		stream << L"NULL";
 		return stream;
 	}
 	
-	//Получаем данные
+	//РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ
 	switch( value->Field()->GetFieldType() )
 	{
 	case enums::FieldType::Integer:
@@ -157,7 +157,7 @@ std::wostream& operator<<( std::wostream& stream, const sqlite::ValuePtr& value 
 	case enums::FieldType::BLob:
 		{
 			stream << "x'";
-			//Перебираем BLOB
+			//РџРµСЂРµР±РёСЂР°РµРј BLOB
 			const auto& valueType = std::static_pointer_cast<ValueType<types::SQLITE_TYPE_BLOB>>( value )->Get();
 			std::for_each
 				(
@@ -165,11 +165,11 @@ std::wostream& operator<<( std::wostream& stream, const sqlite::ValuePtr& value 
 				std::end( valueType ),
 				[&stream]( const unsigned char byte )
 				{
-					//Формируем результат
+					//Р¤РѕСЂРјРёСЂСѓРµРј СЂРµР·СѓР»СЊС‚Р°С‚
 					std::vector<wchar_t> data( SIZE_BUFFER, 0 );
 					swprintf_s( &data[0], data.size(), L"%02X", byte );
 					
-					//Отправляем в поток
+					//РћС‚РїСЂР°РІР»СЏРµРј РІ РїРѕС‚РѕРє
 					stream << &data[0];
 				}
 			);
@@ -185,7 +185,7 @@ std::wostream& operator<<( std::wostream& stream, const sqlite::ValuePtr& value 
 //=====================================================================================================================
 std::wostream& operator<<( std::wostream& stream, const sqlite::ValueTable& valueTable )
 {
-	//флаг о первом вхождении
+	//С„Р»Р°Рі Рѕ РїРµСЂРІРѕРј РІС…РѕР¶РґРµРЅРёРё
 	auto bFirst = true;
 
 	const auto& dfieldList = valueTable.GetFieldDeclarationTable()();

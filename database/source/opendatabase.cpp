@@ -1,15 +1,15 @@
 /// @file 
-/// @brief Файл содержит реализацию классов для подключения к базе данных.
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ СЂРµР°Р»РёР·Р°С†РёСЋ РєР»Р°СЃСЃРѕРІ РґР»СЏ РїРѕРґРєР»СЋС‡РµРЅРёСЏ Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С….
 
 #include <database/include/precompiled.h>
 
 namespace
 {
-/// @brief Осуществляет проверку выполнение операции
+/// @brief РћСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РїСЂРѕРІРµСЂРєСѓ РІС‹РїРѕР»РЅРµРЅРёРµ РѕРїРµСЂР°С†РёРё
 ///
-/// @param[in] sqlite Описание подклбчения к БД
-/// @param[in] sqliteRet Описание кода выполенения операции
-/// @throw sqlite::Exception Исключение при обнаружении ошибки
+/// @param[in] sqlite РћРїРёСЃР°РЅРёРµ РїРѕРґРєР»Р±С‡РµРЅРёСЏ Рє Р‘Р”
+/// @param[in] sqliteRet РћРїРёСЃР°РЅРёРµ РєРѕРґР° РІС‹РїРѕР»РµРЅРµРЅРёСЏ РѕРїРµСЂР°С†РёРё
+/// @throw sqlite::Exception РСЃРєР»СЋС‡РµРЅРёРµ РїСЂРё РѕР±РЅР°СЂСѓР¶РµРЅРёРё РѕС€РёР±РєРё
 void Check( sqlite3* const sqlite, const int sqliteRet )
 {
     if( SQLITE_OK != sqliteRet )
@@ -24,21 +24,21 @@ namespace sqlite
 //=====================================================================================================================
 Database::Database( const boost::filesystem::path& path, const bool readonly ) : sqlite_( nullptr ), path_(path)
 {
-	//проверка входных данных
+	//РїСЂРѕРІРµСЂРєР° РІС…РѕРґРЅС‹С… РґР°РЅРЅС‹С…
 	if( path.empty() ){
 		throw Exception( "Invalid's path: " + path.string() );
 	}
 
-	//Открываем БД
+	//РћС‚РєСЂС‹РІР°РµРј Р‘Р”
 	const int flags = readonly ? SQLITE_OPEN_READONLY : SQLITE_OPEN_READWRITE;
 	const auto& ret = sqlite3_open_v2( culture::w2utf8( path ).c_str(), &sqlite_, flags | SQLITE_OPEN_CREATE, nullptr );
     if (SQLITE_OK != ret)
     {
-		//запоминаем описание ошибки
+		//Р·Р°РїРѕРјРёРЅР°РµРј РѕРїРёСЃР°РЅРёРµ РѕС€РёР±РєРё
         const auto& strerr = GetErrMessage();
-		// закрываем подключение
+		// Р·Р°РєСЂС‹РІР°РµРј РїРѕРґРєР»СЋС‡РµРЅРёРµ
         sqlite3_close( sqlite_ );
-		// создаем исключение
+		// СЃРѕР·РґР°РµРј РёСЃРєР»СЋС‡РµРЅРёРµ
 		throw Exception( strerr );
     }
 }

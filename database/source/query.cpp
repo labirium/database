@@ -1,5 +1,5 @@
 /// @file 
-/// @brief Файл содержит реализацию классов для формирования запроса.
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ СЂРµР°Р»РёР·Р°С†РёСЋ РєР»Р°СЃСЃРѕРІ РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ Р·Р°РїСЂРѕСЃР°.
 
 #include <database/include/precompiled.h>
 
@@ -8,12 +8,12 @@ namespace sqlite
 //=====================================================================================================================
 StmtPtr Query::operator()( const Transaction& transaktion ) const
 {
-	//Формируем запрос для таблицы
+	//Р¤РѕСЂРјРёСЂСѓРµРј Р·Р°РїСЂРѕСЃ РґР»СЏ С‚Р°Р±Р»РёС†С‹
 	std::wostringstream stream;
 	stream << L"SELECT " << StrToStringList( fieldDeclarationTable_->GetFieldNameList() ) << " FROM " << tableName_;
 
 	
-	//Задаем праметры для WHERE
+	//Р—Р°РґР°РµРј РїСЂР°РјРµС‚СЂС‹ РґР»СЏ WHERE
 	tools::FirstString firstString( L", ");
 	stream << ( where_.size() ? L" WHERE " : std::wstring() );
 

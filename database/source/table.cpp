@@ -1,5 +1,5 @@
 /// @file 
-/// @brief Файл содержит реализацию классов для осуществления операций над таблицей базы данных.
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ СЂРµР°Р»РёР·Р°С†РёСЋ РєР»Р°СЃСЃРѕРІ РґР»СЏ РѕСЃСѓС‰РµСЃС‚РІР»РµРЅРёСЏ РѕРїРµСЂР°С†РёР№ РЅР°Рґ С‚Р°Р±Р»РёС†РµР№ Р±Р°Р·С‹ РґР°РЅРЅС‹С….
 
 #include <database/include/precompiled.h>
 
@@ -29,9 +29,9 @@ Query Table::GetQueryWhereRecordSet( void ) const
 void Table::Create( const Transaction& transaktion ) const
 {
 	std::wostringstream stream;
-	//Формируем запрос
+	//Р¤РѕСЂРјРёСЂСѓРµРј Р·Р°РїСЂРѕСЃ
 	stream << L"CREATE TABLE " << name_ << L" ( " << (*fieldDeclarationTable_)() << L" )";
-	//Выполняем запрос
+	//Р’С‹РїРѕР»РЅСЏРµРј Р·Р°РїСЂРѕСЃ
 	transaktion().Exec( stream.str() );	
 }
 //=====================================================================================================================
@@ -45,19 +45,19 @@ void Table::Drop( const Transaction& transaktion ) const
 //=====================================================================================================================
 void Table::Insert( const sqlite::Transaction& transaktion, const sqlite::ValueTable& valueTable ) const
 {
-	//Создаем группу операций для текущей таблицы
+	//РЎРѕР·РґР°РµРј РіСЂСѓРїРїСѓ РѕРїРµСЂР°С†РёР№ РґР»СЏ С‚РµРєСѓС‰РµР№ С‚Р°Р±Р»РёС†С‹
 	sqlite::InsertValue inserter( *this );
 	inserter.Add( valueTable );
-	//Выполняем
+	//Р’С‹РїРѕР»РЅСЏРµРј
 	inserter.Exec( transaktion );
 }
 //=====================================================================================================================
 void Table::Delete(const sqlite::Transaction& transaktion, const sqlite::ValueTable& valueTable) const
 {
-	//Создаем группу операций для текущей таблицы
+	//РЎРѕР·РґР°РµРј РіСЂСѓРїРїСѓ РѕРїРµСЂР°С†РёР№ РґР»СЏ С‚РµРєСѓС‰РµР№ С‚Р°Р±Р»РёС†С‹
 	sqlite::DeleteValue deleter(*this);
 	deleter.Add(valueTable);
-	//Выполняем
+	//Р’С‹РїРѕР»РЅСЏРµРј
 	deleter.Exec(transaktion);
 }
 //=====================================================================================================================

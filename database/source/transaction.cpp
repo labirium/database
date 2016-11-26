@@ -1,15 +1,15 @@
 /// @file 
-/// @brief Файл содержит реализацию классов для осуществления работы транзакции в базе данных.
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ СЂРµР°Р»РёР·Р°С†РёСЋ РєР»Р°СЃСЃРѕРІ РґР»СЏ РѕСЃСѓС‰РµСЃС‚РІР»РµРЅРёСЏ СЂР°Р±РѕС‚С‹ С‚СЂР°РЅР·Р°РєС†РёРё РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С….
 
 #include <database/include/precompiled.h>
 
 namespace
 {
-/// Строка BEGIN
+/// РЎС‚СЂРѕРєР° BEGIN
 const wchar_t* const BEGIN =  L"BEGIN";
-/// Строка ROLLBACK
+/// РЎС‚СЂРѕРєР° ROLLBACK
 const wchar_t* const ROLLBACK =  L"ROLLBACK";
-/// Строка COMMIT
+/// РЎС‚СЂРѕРєР° COMMIT
 const wchar_t* const COMMIT =  L"COMMIT";
 }
 

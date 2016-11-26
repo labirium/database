@@ -1,5 +1,5 @@
 /// @file 
-/// @brief Файл содержит реализацию классов для осуществления получения данных из выборки.
+/// @brief Р¤Р°Р№Р» СЃРѕРґРµСЂР¶РёС‚ СЂРµР°Р»РёР·Р°С†РёСЋ РєР»Р°СЃСЃРѕРІ РґР»СЏ РѕСЃСѓС‰РµСЃС‚РІР»РµРЅРёСЏ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С… РёР· РІС‹Р±РѕСЂРєРё.
 
 #include <database/include/precompiled.h>
 
@@ -26,7 +26,7 @@ sqlite::DatabasePtr Stmt::GetDataBase( void ) const
 //=====================================================================================================================
 sqlite::ValueTablePtr Stmt::Step( void )
 {
-	//Возвращаем результат смещение по выборке
+	//Р’РѕР·РІСЂР°С‰Р°РµРј СЂРµР·СѓР»СЊС‚Р°С‚ СЃРјРµС‰РµРЅРёРµ РїРѕ РІС‹Р±РѕСЂРєРµ
 	const auto returnStep = sqlite3_step( stmt_ );
 	switch( returnStep )
 	{
@@ -38,19 +38,19 @@ sqlite::ValueTablePtr Stmt::Step( void )
 		throw sqlite::Exception( dataBase_->GetErrMessage() );
 	}
 
-	//Формируем переменную
+	//Р¤РѕСЂРјРёСЂСѓРµРј РїРµСЂРµРјРµРЅРЅСѓСЋ
 	auto valueTable = std::make_shared<sqlite::ValueTable>( fieldDeclarationTable_ );
 	assert( valueTable && "Invalid create object.");
 
-	//Получаем количество столбцов и перебираем их
+	//РџРѕР»СѓС‡Р°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚РѕР»Р±С†РѕРІ Рё РїРµСЂРµР±РёСЂР°РµРј РёС…
 	const auto  count = sqlite3_column_count(stmt_);
 	for( int index = 0; index < count; ++index )
 	{
-		//Получаем имя столбца для заданного номера
+		//РџРѕР»СѓС‡Р°РµРј РёРјСЏ СЃС‚РѕР»Р±С†Р° РґР»СЏ Р·Р°РґР°РЅРЅРѕРіРѕ РЅРѕРјРµСЂР°
 		const auto& nameColumn = culture::utf2w( sqlite3_column_name( stmt_, index ) );
 		const auto typeColumn = sqlite3_column_type(stmt_, index);
 		if (SQLITE_NULL == typeColumn){
-			//Получаем переменную
+			//РџРѕР»СѓС‡Р°РµРј РїРµСЂРµРјРµРЅРЅСѓСЋ
 			auto value = valueTable->GetBlobValue(nameColumn);
 			if (!value){
 				throw sqlite::Exception("Invalid get column name.");
@@ -60,7 +60,7 @@ sqlite::ValueTablePtr Stmt::Step( void )
 			continue;
 		}
 
-		//получаем тип столбца БД
+		//РїРѕР»СѓС‡Р°РµРј С‚РёРї СЃС‚РѕР»Р±С†Р° Р‘Р”
 		const auto field = fieldDeclarationTable_->operator()(nameColumn);
 		if (!field){
 			throw sqlite::Exception("Invalid column name.");
@@ -70,40 +70,40 @@ sqlite::ValueTablePtr Stmt::Step( void )
 		{
 		case sqlite::enums::FieldType::Integer:
 			{
-				//Получаем переменную
+				//РџРѕР»СѓС‡Р°РµРј РїРµСЂРµРјРµРЅРЅСѓСЋ
 				auto value = valueTable->GetIntegerValue( nameColumn );
 				if( !value ){
 					throw sqlite::Exception("Invalid get column name.");
 				}
-				//Задаем значение
+				//Р—Р°РґР°РµРј Р·РЅР°С‡РµРЅРёРµ
 				value->Set( sqlite3_column_int64( stmt_, index) );
 				break;
 			}
 		case sqlite::enums::FieldType::Float:
 			{
-				//Получаем переменную
+				//РџРѕР»СѓС‡Р°РµРј РїРµСЂРµРјРµРЅРЅСѓСЋ
 				auto value = valueTable->GetFloatValue( nameColumn );
 				if( !value ){
 					throw sqlite::Exception("Invalid get column name.");
 				}
-				//Задаем значение
+				//Р—Р°РґР°РµРј Р·РЅР°С‡РµРЅРёРµ
 				value->Set( sqlite3_column_double( stmt_, index) );
 				break;
 			}
 		case sqlite::enums::FieldType::Text:
 			{
-				//Получаем переменную
+				//РџРѕР»СѓС‡Р°РµРј РїРµСЂРµРјРµРЅРЅСѓСЋ
 				auto value = valueTable->GetStringValue( nameColumn );
 				if( !value ){
 					throw sqlite::Exception("Invalid get column name.");
 				}
-				//Задаем значение
+				//Р—Р°РґР°РµРј Р·РЅР°С‡РµРЅРёРµ
 				value->Set( culture::utf2w( reinterpret_cast<const char*>( sqlite3_column_text( stmt_, index) ) ) );
 				break;
 			}
 		case sqlite::enums::FieldType::BLob:
 			{
-				//Получаем переменную
+				//РџРѕР»СѓС‡Р°РµРј РїРµСЂРµРјРµРЅРЅСѓСЋ
 				auto value = valueTable->GetBlobValue( nameColumn );
 				if( !value ){
 					throw sqlite::Exception("Invalid get column name.");
@@ -116,7 +116,7 @@ sqlite::ValueTablePtr Stmt::Step( void )
 					types::SQLITE_TYPE_BLOB blob( size, 0 );
 					memcpy( &blob[0], buffer, size );
 
-					//Задаем значение
+					//Р—Р°РґР°РµРј Р·РЅР°С‡РµРЅРёРµ
 					value->Set( blob );
 				}
 				break;
@@ -136,7 +136,7 @@ Stmt::Stmt( const Transaction& transaktion, const FieldDeclarationTablePtr& fiel
 	assert( fieldDeclarationTable && "Invalid input data" );
 	assert( transaktion.GetDataBase() && "Invalid input data" );
 
-	//Формируем запрос
+	//Р¤РѕСЂРјРёСЂСѓРµРј Р·Р°РїСЂРѕСЃ
 	const auto string = culture::w2utf8(query);
 	const auto ret = sqlite3_prepare_v2(transaktion.GetDataBase()->GetSqlite(), string.c_str(), static_cast<int>(string.length()), &stmt_, nullptr);
     if( SQLITE_OK != ret ){
@@ -148,7 +148,7 @@ Stmt::~Stmt() throw()
 {
 	if( stmt_ != nullptr )
 	{
-		//Удаляем запрос
+		//РЈРґР°Р»СЏРµРј Р·Р°РїСЂРѕСЃ
 		const auto ret = sqlite3_finalize( stmt_ );
     	assert( SQLITE_OK == ret && sqlite3_errmsg(dataBase_->GetSqlite() ));
 	}

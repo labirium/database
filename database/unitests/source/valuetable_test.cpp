@@ -1,13 +1,13 @@
 /// @file 
-/// @brief Тесты для получения данных из таблицы
+/// @brief РўРµСЃС‚С‹ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С… РёР· С‚Р°Р±Р»РёС†С‹
 
 #include <unitests/include/precompiled.h>
 
 namespace
 {
-// Тестовое имя таблицы
+// РўРµСЃС‚РѕРІРѕРµ РёРјСЏ С‚Р°Р±Р»РёС†С‹
 const wchar_t* const TEST_NAME_TABLE = L"TEST_TABLE";
-// путь к БД
+// РїСѓС‚СЊ Рє Р‘Р”
 const boost::filesystem::path& PATH_DB = boost::filesystem::temp_directory_path() / L"example.db";
 }
 
@@ -16,41 +16,41 @@ namespace
 class ValueTableF: public ::testing::Test 
 { 
 public: 
-	/// @brief Конструктор
+	/// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
 	ValueTableF( void ) : database_( std::make_shared<sqlite::Database>( PATH_DB, false ) )
 	{
-		///< Описание полей таблицы
+		///< РћРїРёСЃР°РЅРёРµ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹
 		sqlite::FieldDeclarationTable fieldDeclarationTable;
-		//Добавляем поле id и выставляем как основной ключ таблицы
+		//Р”РѕР±Р°РІР»СЏРµРј РїРѕР»Рµ id Рё РІС‹СЃС‚Р°РІР»СЏРµРј РєР°Рє РѕСЃРЅРѕРІРЅРѕР№ РєР»СЋС‡ С‚Р°Р±Р»РёС†С‹
 		fieldDeclarationTable.AddField( L"id", sqlite::enums::FieldType::Integer, true );
-		//Добавляем строковое поле в таблицу
+		//Р”РѕР±Р°РІР»СЏРµРј СЃС‚СЂРѕРєРѕРІРѕРµ РїРѕР»Рµ РІ С‚Р°Р±Р»РёС†Сѓ
 		fieldDeclarationTable.AddField( L"value", sqlite::enums::FieldType::Text );
-		//Добавляем FLOAT
+		//Р”РѕР±Р°РІР»СЏРµРј FLOAT
 		fieldDeclarationTable.AddField( L"counts", sqlite::enums::FieldType::Float );
-		//Добавляем BLOB
+		//Р”РѕР±Р°РІР»СЏРµРј BLOB
 		fieldDeclarationTable.AddField( L"data", sqlite::enums::FieldType::BLob );
 
-		//Создаем описание таблицы
+		//РЎРѕР·РґР°РµРј РѕРїРёСЃР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 		table_ = std::make_shared<sqlite::Table>( TEST_NAME_TABLE, fieldDeclarationTable );
 	};
-    /// @brief Деструктор
+    /// @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
     ///
 	~ValueTableF(){};
-	/// @brief Код, который будет выполнен перед началом теста 
+	/// @brief РљРѕРґ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РІС‹РїРѕР»РЅРµРЅ РїРµСЂРµРґ РЅР°С‡Р°Р»РѕРј С‚РµСЃС‚Р° 
 	///
 	void SetUp( void ){};
-	/// @brief Код, который будет выполнен сразу по завершении теста
+	/// @brief РљРѕРґ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РІС‹РїРѕР»РЅРµРЅ СЃСЂР°Р·Сѓ РїРѕ Р·Р°РІРµСЂС€РµРЅРёРё С‚РµСЃС‚Р°
 	///
 	void TearDown( void ){};
 protected:
-	/// @brief Возвращает таблицу
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚Р°Р±Р»РёС†Сѓ
 	///
 	sqlite::TablePtr GetTable( void ) const
 	{
 		return table_;
 	}
-	/// @brief Возвращает описание подулючение к БД
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ РѕРїРёСЃР°РЅРёРµ РїРѕРґСѓР»СЋС‡РµРЅРёРµ Рє Р‘Р”
 	///
 	sqlite::DatabasePtr GetDatabase( void ) const
 	{
@@ -58,23 +58,23 @@ protected:
 	}
 
 private:
-	///< Подключение к БД
+	///< РџРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р”
 	const sqlite::DatabasePtr database_;
-	///< Описание таблицы
+	///< РћРїРёСЃР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 	sqlite::TablePtr table_;
 
 };
 }
 
 //=====================================================================================================================
-// Тест создания исключения
+// РўРµСЃС‚ СЃРѕР·РґР°РЅРёСЏ РёСЃРєР»СЋС‡РµРЅРёСЏ
 TEST_F(ValueTableF, Create ) 
 {
 	//EXPECT_NO_THROW( sqlite::ValueTable valueTable( GetTable() ) );
 	//EXPECT_NO_THROW( sqlite::ValueTable valueTable2( GetTable()->GetFieldDeclarationTablePtr() ) );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(ValueTableF, GetIntegerValue ) 
 {
 	const wchar_t* const NAME = L"id";
@@ -89,7 +89,7 @@ TEST_F(ValueTableF, GetIntegerValue )
 	EXPECT_EQ( valueTable.GetIntegerValue( NAME )->Get(), VALUE );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(ValueTableF, GetStringValue ) 
 {
 	const wchar_t* const NAME = L"value";
@@ -104,7 +104,7 @@ TEST_F(ValueTableF, GetStringValue )
 	EXPECT_EQ( valueTable.GetStringValue( NAME )->Get(),  VALUE );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(ValueTableF, GetFloatValue ) 
 {
 	const wchar_t* const NAME = L"counts";
@@ -119,7 +119,7 @@ TEST_F(ValueTableF, GetFloatValue )
 	EXPECT_EQ( valueTable.GetFloatValue( NAME )->Get(),  VALUE );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(ValueTableF, GetBlobValue ) 
 {
 	const wchar_t* const NAME = L"data";
@@ -134,7 +134,7 @@ TEST_F(ValueTableF, GetBlobValue )
 	EXPECT_EQ( valueTable.GetBlobValue( NAME )->Get(),  VALUE );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(ValueTableF, GetFailedData ) 
 {
 	sqlite::ValueTable valueTable( GetTable() );
@@ -144,7 +144,7 @@ TEST_F(ValueTableF, GetFailedData )
 	EXPECT_NO_THROW( valueTable.GetIntegerValue( L"id" ) );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(ValueTableF, GetData ) 
 {
 	const wchar_t* const NAME = L"data";
@@ -155,7 +155,7 @@ TEST_F(ValueTableF, GetData )
 	EXPECT_EQ( valueTable.GetFieldDeclarationTable().GetFieldNameList().size(), GetTable()->GetFieldDeclarationTable().GetFieldNameList().size() );	
 }
 //=====================================================================================================================
-// Тест на запись в поток
+// РўРµСЃС‚ РЅР° Р·Р°РїРёСЃСЊ РІ РїРѕС‚РѕРє
 TEST_F(ValueTableF, StreamDefaultData ) 
 {
 	std::wostringstream stream;
@@ -164,7 +164,7 @@ TEST_F(ValueTableF, StreamDefaultData )
 	EXPECT_STREQ( stream.str().c_str(), L"\"0\", \"\", \"0\", x''" );	
 }
 //=====================================================================================================================
-// Тест на запись в поток
+// РўРµСЃС‚ РЅР° Р·Р°РїРёСЃСЊ РІ РїРѕС‚РѕРє
 TEST_F(ValueTableF, Stream ) 
 {
 	const wchar_t* const NAME = L"value";

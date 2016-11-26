@@ -1,13 +1,13 @@
 /// @file 
-/// @brief Тесты для выборки из БД
+/// @brief РўРµСЃС‚С‹ РґР»СЏ РІС‹Р±РѕСЂРєРё РёР· Р‘Р”
 
 #include <unitests/include/precompiled.h>
 
 namespace
 {
-// Тестовое имя таблицы
+// РўРµСЃС‚РѕРІРѕРµ РёРјСЏ С‚Р°Р±Р»РёС†С‹
 const wchar_t* const TEST_NAME_TABLE = L"TEST_TABLE";
-// путь к БД
+// РїСѓС‚СЊ Рє Р‘Р”
 const boost::filesystem::path& PATH_DB = boost::filesystem::temp_directory_path() / L"example.db";
 }
 
@@ -16,25 +16,25 @@ namespace
 class StatmentF: public ::testing::Test 
 { 
 public: 
-	/// @brief Конструктор
+	/// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
 	StatmentF( void ) : database_( std::make_shared<sqlite::Database>( PATH_DB, false ) )
 	{
-		///< Описание полей таблицы
+		///< РћРїРёСЃР°РЅРёРµ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹
 		sqlite::FieldDeclarationTable fieldDeclarationTable;
-		//Добавляем поле id и выставляем как основной ключ таблицы
+		//Р”РѕР±Р°РІР»СЏРµРј РїРѕР»Рµ id Рё РІС‹СЃС‚Р°РІР»СЏРµРј РєР°Рє РѕСЃРЅРѕРІРЅРѕР№ РєР»СЋС‡ С‚Р°Р±Р»РёС†С‹
 		fieldDeclarationTable.AddField( L"id", sqlite::enums::FieldType::Integer, true );
-		//Добавляем строковое поле в таблицу
+		//Р”РѕР±Р°РІР»СЏРµРј СЃС‚СЂРѕРєРѕРІРѕРµ РїРѕР»Рµ РІ С‚Р°Р±Р»РёС†Сѓ
 		fieldDeclarationTable.AddField( L"value", sqlite::enums::FieldType::Text );
 
 		sqlite::Table ff( TEST_NAME_TABLE, fieldDeclarationTable );
-		//Создаем описание таблицы
+		//РЎРѕР·РґР°РµРј РѕРїРёСЃР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 		table_ = std::make_shared<sqlite::Table>( TEST_NAME_TABLE, fieldDeclarationTable );
 	};
-    /// @brief Деструктор
+    /// @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
     ///
 	~StatmentF(){};
-	/// @brief Код, который будет выполнен перед началом теста 
+	/// @brief РљРѕРґ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РІС‹РїРѕР»РЅРµРЅ РїРµСЂРµРґ РЅР°С‡Р°Р»РѕРј С‚РµСЃС‚Р° 
 	///
 	void SetUp( void )
 	{
@@ -42,44 +42,44 @@ public:
 		GetTable()->Drop( transaktion );
 		GetTable()->Create( transaktion );
 
-		//Запись данных в таблицу (подготовка данных)
+		//Р—Р°РїРёСЃСЊ РґР°РЅРЅС‹С… РІ С‚Р°Р±Р»РёС†Сѓ (РїРѕРґРіРѕС‚РѕРІРєР° РґР°РЅРЅС‹С…)
 		sqlite::ValueTable valueTable( GetTable() ); 
-		//Выставка значения для поля id
+		//Р’С‹СЃС‚Р°РІРєР° Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РїРѕР»СЏ id
 		valueTable.GetIntegerValue( L"id" )->SetNull();
-		//Выставка значения для поля value
+		//Р’С‹СЃС‚Р°РІРєР° Р·РЅР°С‡РµРЅРёСЏ РґР»СЏ РїРѕР»СЏ value
 		valueTable.GetStringValue( L"value" )->Set( L"data" );
 
-		//Вставка одной записи в теблицу
+		//Р’СЃС‚Р°РІРєР° РѕРґРЅРѕР№ Р·Р°РїРёСЃРё РІ С‚РµР±Р»РёС†Сѓ
 		GetTable()->Insert( transaktion, valueTable );
 
-		//Закрываем транзакцию
+		//Р—Р°РєСЂС‹РІР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 		transaktion.Commit();
 	};
-	/// @brief Код, который будет выполнен сразу по завершении теста
+	/// @brief РљРѕРґ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РІС‹РїРѕР»РЅРµРЅ СЃСЂР°Р·Сѓ РїРѕ Р·Р°РІРµСЂС€РµРЅРёРё С‚РµСЃС‚Р°
 	///
 	void TearDown( void ){};
 protected:
-	/// @brief Возвращает запрос
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ Р·Р°РїСЂРѕСЃ
 	sqlite::Query GetQuery( void ) const
 	{
 		return table_->GetQueryWhereRecordSet();
 	}
-	/// @brief Возвращает таблицу
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚Р°Р±Р»РёС†Сѓ
 	///
 	sqlite::TablePtr GetTable( void ) const
 	{
 		return table_;
 	}
-	/// @brief Возвращает описание подулючение к БД
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ РѕРїРёСЃР°РЅРёРµ РїРѕРґСѓР»СЋС‡РµРЅРёРµ Рє Р‘Р”
 	///
 	sqlite::DatabasePtr GetDatabase( void ) const
 	{
 		return database_;
 	}
 private:
-	///< Подключение к БД
+	///< РџРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р”
 	const sqlite::DatabasePtr database_;
-	///< Описание таблицы
+	///< РћРїРёСЃР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 	sqlite::TablePtr table_;
 
 };
@@ -87,7 +87,7 @@ private:
 
 
 //=====================================================================================================================
-// Тест создания исключения
+// РўРµСЃС‚ СЃРѕР·РґР°РЅРёСЏ РёСЃРєР»СЋС‡РµРЅРёСЏ
 TEST_F(StatmentF, Create ) 
 {
 	sqlite::Transaction transaktion( GetDatabase() );
@@ -95,7 +95,7 @@ TEST_F(StatmentF, Create )
 	EXPECT_NE( GetQuery()( transaktion ), nullptr );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(StatmentF, GetData ) 
 {
 	sqlite::Transaction transaktion( GetDatabase() );
@@ -103,33 +103,33 @@ TEST_F(StatmentF, GetData )
 	EXPECT_EQ( query->GetDataBase(), GetDatabase() );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(StatmentF, Step ) 
 {
-	//Открываем транзакцию
+	//РћС‚РєСЂС‹РІР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	sqlite::Transaction transaktion( GetDatabase() );
 
-	//Получаем запрос для выборки по таблице и задаем параметры для выборки
+	//РџРѕР»СѓС‡Р°РµРј Р·Р°РїСЂРѕСЃ РґР»СЏ РІС‹Р±РѕСЂРєРё РїРѕ С‚Р°Р±Р»РёС†Рµ Рё Р·Р°РґР°РµРј РїР°СЂР°РјРµС‚СЂС‹ РґР»СЏ РІС‹Р±РѕСЂРєРё
 	auto query = GetTable()->GetQueryWhereRecordSet();	
 			
-	//Выполняем запрос к таблице БД
+	//Р’С‹РїРѕР»РЅСЏРµРј Р·Р°РїСЂРѕСЃ Рє С‚Р°Р±Р»РёС†Рµ Р‘Р”
 	auto stmt = query( transaktion );
 	EXPECT_NE( stmt, nullptr );
 				
-	//Закрываем транзакцию
+	//Р—Р°РєСЂС‹РІР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	transaktion.Commit();
 
 	const auto value = stmt->Step();
 	EXPECT_NE( value.get(), nullptr );
 
-	//Получаем данные для поля id
+	//РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ РґР»СЏ РїРѕР»СЏ id
 	auto id = value->GetIntegerValue( L"id" )->Get();
 	EXPECT_EQ( id, 1 );
-	//Получаем данные для поля value
+	//РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ РґР»СЏ РїРѕР»СЏ value
 	auto data = value->GetStringValue( L"value" )->Get();
 	EXPECT_STREQ( data.c_str(), L"data" );
 	
-	//Выполняем запрос к таблице БД
+	//Р’С‹РїРѕР»РЅСЏРµРј Р·Р°РїСЂРѕСЃ Рє С‚Р°Р±Р»РёС†Рµ Р‘Р”
 	const auto value2 = stmt->Step();
 	EXPECT_EQ( value2.get(), nullptr );
 }

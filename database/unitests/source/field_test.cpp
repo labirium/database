@@ -1,21 +1,21 @@
 /// @file 
-/// @brief Тесты для формирования описания полей таблицы.
+/// @brief РўРµСЃС‚С‹ РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РѕРїРёСЃР°РЅРёСЏ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹.
 
 #include <unitests/include/precompiled.h>
 
 namespace
 {
-///< имя тестовой таблицы 1
+///< РёРјСЏ С‚РµСЃС‚РѕРІРѕР№ С‚Р°Р±Р»РёС†С‹ 1
 const wchar_t* TABLE_NAME = L"test_name";
-///< имя тестовой таблицы 2
+///< РёРјСЏ С‚РµСЃС‚РѕРІРѕР№ С‚Р°Р±Р»РёС†С‹ 2
 const wchar_t* TABLE_NAME_2 = L"test_name_2";
-///< имя тестовой таблицы 3
+///< РёРјСЏ С‚РµСЃС‚РѕРІРѕР№ С‚Р°Р±Р»РёС†С‹ 3
 const wchar_t* TABLE_NAME_3 = L"test_name_3";
-///< имя тестовой таблицы 4	
+///< РёРјСЏ С‚РµСЃС‚РѕРІРѕР№ С‚Р°Р±Р»РёС†С‹ 4	
 const wchar_t* TABLE_NAME_4 = L"test_name_4";
 }
 //=====================================================================================================================
-// Тест на получение строк через операторы
+// РўРµСЃС‚ РЅР° РїРѕР»СѓС‡РµРЅРёРµ СЃС‚СЂРѕРє С‡РµСЂРµР· РѕРїРµСЂР°С‚РѕСЂС‹
 TEST(FieldType, GetStringTypeOperator ) 
 {
 	EXPECT_STREQ( static_cast<sqlite::FieldType>( sqlite::enums::FieldType::Integer ), L"INTEGER" );
@@ -31,7 +31,7 @@ TEST(FieldType, GetStringTypeOperator )
 	EXPECT_STREQ( static_cast<sqlite::FieldType>( sqlite::enums::FieldType::BLob ).ToString(), L"BLOB" );
 }
 //=====================================================================================================================
-// Тест на получение константых строк
+// РўРµСЃС‚ РЅР° РїРѕР»СѓС‡РµРЅРёРµ РєРѕРЅСЃС‚Р°РЅС‚С‹С… СЃС‚СЂРѕРє
 TEST(FieldType, GetConstStringType )
 {
 	const std::wstring strFnteger = static_cast<sqlite::FieldType>( sqlite::enums::FieldType::Integer );
@@ -47,7 +47,7 @@ TEST(FieldType, GetConstStringType )
 	EXPECT_STREQ( strBlob.c_str(), L"BLOB" );
 }
 //=====================================================================================================================
-// Тест на получение строк
+// РўРµСЃС‚ РЅР° РїРѕР»СѓС‡РµРЅРёРµ СЃС‚СЂРѕРє
 TEST(FieldType, GetStringType ) 
 {
 	std::wstring strFnteger( static_cast<sqlite::FieldType>( sqlite::enums::FieldType::Integer ) );
@@ -63,22 +63,22 @@ TEST(FieldType, GetStringType )
 	EXPECT_STREQ( strBlob.c_str(), L"BLOB" );
 }
 //=====================================================================================================================
-// Тест на получение данных
+// РўРµСЃС‚ РЅР° РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С…
 TEST( Field, GetData ) 
 {
 	EXPECT_NO_THROW( sqlite::Field( TABLE_NAME, sqlite::enums::FieldType::Integer ) );
 	EXPECT_NO_THROW( sqlite::Field( TABLE_NAME, sqlite::enums::FieldType::Integer, true ) );
 
 	sqlite::Field field( TABLE_NAME, sqlite::enums::FieldType::Integer );
-	//проверяем генерация строки
+	//РїСЂРѕРІРµСЂСЏРµРј РіРµРЅРµСЂР°С†РёСЏ СЃС‚СЂРѕРєРё
 	auto dataString = field();
 	EXPECT_STREQ( dataString.c_str(), L"test_name INTEGER" );
-	//проверяем тип поля
+	//РїСЂРѕРІРµСЂСЏРµРј С‚РёРї РїРѕР»СЏ
 	EXPECT_EQ( field.GetFieldType(), sqlite::enums::FieldType::Integer );
-	//проверяем имя поля
+	//РїСЂРѕРІРµСЂСЏРµРј РёРјСЏ РїРѕР»СЏ
 	const auto& name =  field.GetName();
 	EXPECT_STREQ( name.c_str(), TABLE_NAME );
-	//проверяем параметр конструктора
+	//РїСЂРѕРІРµСЂСЏРµРј РїР°СЂР°РјРµС‚СЂ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 	dataString = sqlite::Field( TABLE_NAME, sqlite::enums::FieldType::Float, true )();
 	EXPECT_STREQ( dataString.c_str(), L"test_name FLOAT NOT NULL PRIMARY KEY AUTOINCREMENT" );
 }
@@ -86,14 +86,14 @@ TEST( Field, GetData )
 //=====================================================================================================================
 //FieldDeclarationTable
 //=====================================================================================================================
-// Тест на создание объекта
+// РўРµСЃС‚ РЅР° СЃРѕР·РґР°РЅРёРµ РѕР±СЉРµРєС‚Р°
 TEST( FieldDeclarationTable, Create ) 
 {
-	//Создание объекта
+	//РЎРѕР·РґР°РЅРёРµ РѕР±СЉРµРєС‚Р°
 	EXPECT_NO_THROW( sqlite::FieldDeclarationTable() );
 }
 //=====================================================================================================================
-// Тест на регистрацию полей в таблице
+// РўРµСЃС‚ РЅР° СЂРµРіРёСЃС‚СЂР°С†РёСЋ РїРѕР»РµР№ РІ С‚Р°Р±Р»РёС†Рµ
 TEST( FieldDeclarationTable, AddField ) 
 {
 	sqlite::FieldDeclarationTable fieldDeclarationTable;
@@ -104,13 +104,13 @@ TEST( FieldDeclarationTable, AddField )
 	EXPECT_NO_THROW( fieldDeclarationTable.AddField( field ) );
 }
 //=====================================================================================================================
-// Тест на получения данных из таблицы
+// РўРµСЃС‚ РЅР° РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С… РёР· С‚Р°Р±Р»РёС†С‹
 TEST( FieldDeclarationTable, GetData ) 
 {
 	sqlite::FieldDeclarationTable fieldDeclarationTable;
 	fieldDeclarationTable.AddField( TABLE_NAME, sqlite::enums::FieldType::Integer, true );
 	
-	//Тест на получения данных из таблицы
+	//РўРµСЃС‚ РЅР° РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С… РёР· С‚Р°Р±Р»РёС†С‹
 	EXPECT_NE( fieldDeclarationTable( TABLE_NAME ), nullptr );
 	EXPECT_EQ( fieldDeclarationTable( (std::wstring(TABLE_NAME) + L"_PREF") ), nullptr );
 	EXPECT_EQ( fieldDeclarationTable().size(), 1 );
@@ -120,7 +120,7 @@ TEST( FieldDeclarationTable, GetData )
 //=====================================================================================================================
 //StreamString
 //=====================================================================================================================
-// Тест на поток данных
+// РўРµСЃС‚ РЅР° РїРѕС‚РѕРє РґР°РЅРЅС‹С…
 TEST( StreamString, FieldType ) 
 {
 	std::wstringstream straem;
@@ -132,7 +132,7 @@ TEST( StreamString, FieldType )
 	EXPECT_STREQ( data.str().c_str(), L"test_name INTEGER" );
 }
 //=====================================================================================================================
-// Тест на поток данных
+// РўРµСЃС‚ РЅР° РїРѕС‚РѕРє РґР°РЅРЅС‹С…
 TEST( StreamString, Field ) 
 {
 	sqlite::Field field( TABLE_NAME, sqlite::enums::FieldType::Integer );
@@ -142,7 +142,7 @@ TEST( StreamString, Field )
 	EXPECT_STREQ(  straem.str().c_str(), L"test_name INTEGER"  );
 }
 //=====================================================================================================================
-// Тест на поток данных
+// РўРµСЃС‚ РЅР° РїРѕС‚РѕРє РґР°РЅРЅС‹С…
 TEST( StreamString, FieldList ) 
 {
 	sqlite::FieldDeclarationTable fieldDeclarationTable;

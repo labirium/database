@@ -1,13 +1,13 @@
 /// @file 
-/// @brief Тесты для задания параметров выборки БД
+/// @brief РўРµСЃС‚С‹ РґР»СЏ Р·Р°РґР°РЅРёСЏ РїР°СЂР°РјРµС‚СЂРѕРІ РІС‹Р±РѕСЂРєРё Р‘Р”
 
 #include <unitests/include/precompiled.h>
 
 namespace
 {
-// Тестовое имя таблицы
+// РўРµСЃС‚РѕРІРѕРµ РёРјСЏ С‚Р°Р±Р»РёС†С‹
 const wchar_t* const TEST_NAME_TABLE = L"TEST_TABLE";
-// путь к БД
+// РїСѓС‚СЊ Рє Р‘Р”
 const boost::filesystem::path& PATH_DB = boost::filesystem::temp_directory_path() / L"example.db";
 }
 
@@ -16,38 +16,38 @@ namespace
 class QueryF: public ::testing::Test 
 { 
 public: 
-	/// @brief Конструктор
+	/// @brief РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	///
 	QueryF( void ) : database_( std::make_shared<sqlite::Database>( PATH_DB, false ) )
 	{
-		///< Описание полей таблицы
+		///< РћРїРёСЃР°РЅРёРµ РїРѕР»РµР№ С‚Р°Р±Р»РёС†С‹
 		sqlite::FieldDeclarationTable fieldDeclarationTable;
-		//Добавляем поле id и выставляем как основной ключ таблицы
+		//Р”РѕР±Р°РІР»СЏРµРј РїРѕР»Рµ id Рё РІС‹СЃС‚Р°РІР»СЏРµРј РєР°Рє РѕСЃРЅРѕРІРЅРѕР№ РєР»СЋС‡ С‚Р°Р±Р»РёС†С‹
 		fieldDeclarationTable.AddField( L"id", sqlite::enums::FieldType::Integer, true );
-		//Добавляем строковое поле в таблицу
+		//Р”РѕР±Р°РІР»СЏРµРј СЃС‚СЂРѕРєРѕРІРѕРµ РїРѕР»Рµ РІ С‚Р°Р±Р»РёС†Сѓ
 		fieldDeclarationTable.AddField( L"value", sqlite::enums::FieldType::Text );
 
 		sqlite::Table ff( TEST_NAME_TABLE, fieldDeclarationTable );
-		//Создаем описание таблицы
+		//РЎРѕР·РґР°РµРј РѕРїРёСЃР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 		table_ = std::make_shared<sqlite::Table>( TEST_NAME_TABLE, fieldDeclarationTable );
 	};
-    /// @brief Деструктор
+    /// @brief Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
     ///
 	~QueryF(){};
-	/// @brief Код, который будет выполнен перед началом теста 
+	/// @brief РљРѕРґ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РІС‹РїРѕР»РЅРµРЅ РїРµСЂРµРґ РЅР°С‡Р°Р»РѕРј С‚РµСЃС‚Р° 
 	///
 	void SetUp( void ){};
-	/// @brief Код, который будет выполнен сразу по завершении теста
+	/// @brief РљРѕРґ, РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РІС‹РїРѕР»РЅРµРЅ СЃСЂР°Р·Сѓ РїРѕ Р·Р°РІРµСЂС€РµРЅРёРё С‚РµСЃС‚Р°
 	///
 	void TearDown( void ){};
 protected:
-	/// @brief Возвращает таблицу
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚Р°Р±Р»РёС†Сѓ
 	///
 	sqlite::TablePtr GetTable( void ) const
 	{
 		return table_;
 	}
-	/// @brief Возвращает описание подулючение к БД
+	/// @brief Р’РѕР·РІСЂР°С‰Р°РµС‚ РѕРїРёСЃР°РЅРёРµ РїРѕРґСѓР»СЋС‡РµРЅРёРµ Рє Р‘Р”
 	///
 	sqlite::DatabasePtr GetDatabase( void ) const
 	{
@@ -55,27 +55,27 @@ protected:
 	}
 
 private:
-	///< Подключение к БД
+	///< РџРѕРґРєР»СЋС‡РµРЅРёРµ Рє Р‘Р”
 	const sqlite::DatabasePtr database_;
-	///< Описание таблицы
+	///< РћРїРёСЃР°РЅРёРµ С‚Р°Р±Р»РёС†С‹
 	sqlite::TablePtr table_;
 
 };
 }
 
 //=====================================================================================================================
-// Тест создания
+// РўРµСЃС‚ СЃРѕР·РґР°РЅРёСЏ
 TEST_F(QueryF, Create ) 
 {
 	EXPECT_NO_THROW( GetTable()->GetQueryWhereRecordSet() );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(QueryF, GetData ) 
 {
 	auto query = GetTable()->GetQueryWhereRecordSet();
 
-	//Создаем транзакцию
+	//РЎРѕР·РґР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	sqlite::Transaction transaktion( GetDatabase() );
 	GetTable()->Drop( transaktion );
 	GetTable()->Create( transaktion );
@@ -85,19 +85,19 @@ TEST_F(QueryF, GetData )
 	EXPECT_NE( query( transaktion ), query( transaktion ) );
 }
 //=====================================================================================================================
-// Тест получения данных
+// РўРµСЃС‚ РїРѕР»СѓС‡РµРЅРёСЏ РґР°РЅРЅС‹С…
 TEST_F(QueryF, GetDataThrow ) 
 {
 	auto query = GetTable()->GetQueryWhereRecordSet();
 
-	//Создаем транзакцию
+	//РЎРѕР·РґР°РµРј С‚СЂР°РЅР·Р°РєС†РёСЋ
 	sqlite::Transaction transaktion( GetDatabase() );
 	GetTable()->Drop( transaktion );
 
 	EXPECT_THROW( query( transaktion ), sqlite::Exception );
 }
 //=====================================================================================================================
-// Тест WHERE
+// РўРµСЃС‚ WHERE
 TEST_F(QueryF, Where ) 
 {
 	auto query = GetTable()->GetQueryWhereRecordSet();
